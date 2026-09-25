@@ -217,6 +217,16 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
   .link .ok{grid-column:2}
   .evt{width:210px}
 }
+
+/* checkout */
+.buy{margin-top:24px;display:grid;gap:12px}
+.buy-item{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:end;padding:18px 20px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--border)}
+.buy-item > div{display:grid;gap:2px}
+.buy-item > div span{color:var(--text-2);font-size:.92rem}
+.buy-item label{display:grid;gap:4px;font-size:.8rem}
+.buy-item input{width:110px;padding:9px 11px}
+.buy-msg{font-size:.92rem;color:var(--yellow);padding:12px 14px;border:1px dashed var(--border);border-radius:var(--r-md)}
+@media (max-width:560px){.buy-item{grid-template-columns:1fr}.buy-item input{width:100%}}
 </style>
 </head>
 <body>
@@ -393,7 +403,7 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
             <li>Email support</li>
             <li>Proof Pro available at $299 / month</li>
           </ul>
-          <a class="btn btn-primary" href="#enterprise">Request a license</a>
+          <a class="btn btn-primary" href="#buy" data-buy="gate-team">Buy Gate Team</a>
         </div>
         <div class="plan">
           <div class="pn">Enterprise</div>
@@ -421,7 +431,20 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
           </tbody>
         </table>
       </div>
-      <p class="note">Card checkout is being set up. Until it opens, request a license below and we'll send an invoice. Prices exclude any sales tax or VAT that applies where you are.</p>
+      <div class="buy" id="buy">
+        <div class="buy-item">
+          <div><b>Gate Team</b><span>$20 per developer / month</span></div>
+          <label for="gate-seats">Developers<input id="gate-seats" type="number" min="1" max="500" value="5" inputmode="numeric"></label>
+          <button class="btn btn-primary" type="button" data-buy="gate-team">Buy</button>
+        </div>
+        <div class="buy-item">
+          <div><b>Proof Pro</b><span>$299 / month</span></div>
+          <span></span>
+          <button class="btn btn-primary" type="button" data-buy="proof-pro">Buy</button>
+        </div>
+        <p class="buy-msg" id="buy-msg" role="status" hidden></p>
+      </div>
+      <p class="note">Checkout is handled by Paddle, our reseller and merchant of record, who charges any sales tax or VAT and sends your receipt. Your license key arrives by email after payment. Enterprise and invoiced purchases: use the form below.</p>
     </div>
   </section>
 
@@ -545,6 +568,43 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
   </div>
 </footer>
 
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+// Paddle checkout. Fill these in from the Paddle dashboard once the account is approved:
+//   Developer tools -> Authentication -> client-side token (starts with live_ or test_)
+//   Catalog -> Products -> each price's ID (starts with pri_)
+// Client-side tokens and price IDs are meant to be public; never put an API key here.
+var PADDLE = {
+  environment: 'production',   // 'sandbox' while testing with a test_ token
+  clientToken: '',
+  prices: { 'gate-team': '', 'proof-pro': '' }
+};
+(function(){
+  var ready = false;
+  try {
+    if (PADDLE.clientToken && window.Paddle) {
+      if (PADDLE.environment === 'sandbox') Paddle.Environment.set('sandbox');
+      Paddle.Initialize({ token: PADDLE.clientToken });
+      ready = true;
+    }
+  } catch (e) { ready = false; }
+  var msg = document.getElementById('buy-msg');
+  document.querySelectorAll('[data-buy]').forEach(function(el){
+    el.addEventListener('click', function(ev){
+      var key = el.getAttribute('data-buy'), price = PADDLE.prices[key];
+      if (el.tagName === 'A') { ev.preventDefault(); document.getElementById('buy').scrollIntoView({behavior:'smooth', block:'center'}); if (key === 'gate-team') return; }
+      if (!ready || !price) {
+        msg.hidden = false;
+        msg.textContent = 'Card checkout opens very soon. For now, request a license with the form below and we will invoice you.';
+        return;
+      }
+      var qty = 1;
+      if (key === 'gate-team') { qty = Math.max(1, Math.min(500, parseInt(document.getElementById('gate-seats').value, 10) || 1)); }
+      Paddle.Checkout.open({ items: [{ priceId: price, quantity: qty }] });
+    });
+  });
+})();
+</script>
 <script>
 (function(){
   var events = [

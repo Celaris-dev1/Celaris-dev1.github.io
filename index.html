@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Prolu: self-hosted governance for AI agents. Verify code, limit authority, run agents safely, and keep a tamper-evident record.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%2382AAFF%27/%3E%3Cpath d=%27M10 25V7h7a6 6 0 0 1 0 12h-7%27 stroke=%27%23011627%27 stroke-width=%274%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<title>Prolu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --floor:#010E18; --base:#011627; --surface:#0A1E30; --elevated:#132A3E; --medium:#1D3B53;
+  --border:#2A3F51; --border-soft:rgba(42,63,81,.55);
+  --text:#D6DEEB; --text-2:#9DB2C0; --muted:#7E8E94;
+  --primary:#82AAFF; --primary-rgb:130,170,255; --primary-dark:#4976A1;
+  --cyan:#7FDBCA; --cyan-rgb:127,219,202; --purple:#C792EA; --purple-rgb:199,146,234;
+  --yellow:#FFCB6B; --coral:#FFAB70; --green:#C3E88D; --pink:#F07178;
+  --title:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Fira Code",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r-md:8px; --r-lg:12px; --r-xl:20px; --pill:100px;
+}
+*{box-sizing:border-box}
+body{margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--base);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased}
+a{color:var(--primary)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:6px}
+h1,h2,h3,h4{font-family:var(--title);margin:0;line-height:1.1;text-wrap:balance;letter-spacing:-.02em}
+p{margin:0}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:20px}
+.mono{font-family:var(--mono)}
+.kicker{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--cyan)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(1,14,24,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-family:var(--title);font-weight:700;font-size:1.35rem;letter-spacing:-.02em}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--purple));display:grid;place-items:center;box-shadow:0 0 24px rgba(var(--primary-rgb),.35)}
+.logo-mark svg{width:16px;height:16px}
+.top nav{display:flex;gap:26px;align-items:center}
+.top nav a{color:var(--text-2);text-decoration:none;font-size:.95rem;font-weight:500}
+.top nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .98rem var(--body);padding:12px 22px;border-radius:var(--pill);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn-primary{background:var(--primary);color:var(--base);box-shadow:0 8px 30px -8px rgba(var(--primary-rgb),.6)}
+.btn-primary:hover{background:#9CBCFF}
+.btn-ghost{background:rgba(255,255,255,.03);color:var(--text);border-color:var(--border)}
+.btn-ghost:hover{border-color:var(--primary-dark);background:rgba(var(--primary-rgb),.06)}
+.btn-sm{padding:8px 16px;font-size:.9rem}
+
+/* hero */
+.hero{position:relative;min-height:calc(82svh - 64px);display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(180deg,var(--floor) 0%,var(--floor) 70%,var(--base) 100%);padding-block:72px}
+.aurora{position:absolute;width:760px;height:760px;max-width:140vw;border-radius:50%;left:50%;top:44%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(var(--primary-rgb),.16) 0%,rgba(var(--cyan-rgb),.07) 45%,transparent 70%);filter:blur(70px);z-index:0;pointer-events:none}
+.drift{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.track{position:absolute;left:0;display:flex;gap:16px;width:max-content;transform:translateY(-50%)}
+.track.t1{top:22%} .track.t2{top:50%} .track.t3{top:78%}
+.evt{flex:none;width:250px;padding:14px 16px;border-radius:var(--r-lg);background:rgba(10,30,48,.9);border:1px solid var(--border);display:grid;gap:8px;font-family:var(--mono);font-size:.74rem;color:var(--text-2)}
+.evt .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.evt .name{color:var(--text);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{padding:2px 8px;border-radius:var(--pill);font-size:.68rem;white-space:nowrap;border:1px solid currentColor}
+.c-green{color:var(--green)} .c-pink{color:var(--pink)} .c-yellow{color:var(--yellow)} .c-cyan{color:var(--cyan)} .c-purple{color:var(--purple)} .c-blue{color:var(--primary)} .c-coral{color:var(--coral)}
+.scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(58% 74% at 50% 46%,rgba(1,14,24,.95) 0%,rgba(1,14,24,.72) 52%,rgba(1,14,24,.18) 100%),linear-gradient(rgba(1,14,24,.6),transparent 26% 70%,rgba(1,22,39,.96) 97%)}
+.hero-copy{position:relative;z-index:3;text-align:center;max-width:860px;padding-inline:20px;display:grid;justify-items:center;gap:22px}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:var(--pill);background:rgba(var(--primary-rgb),.08);border:1px solid rgba(var(--primary-rgb),.25);font-size:.85rem;color:var(--text-2)}
+.badge b{font-family:var(--mono);font-weight:500;font-size:.72rem;color:var(--base);background:var(--cyan);padding:2px 8px;border-radius:var(--pill)}
+.hero h1{font-size:clamp(2.7rem,7vw,4.6rem);font-weight:700;text-shadow:0 2px 24px rgba(1,22,39,.7)}
+.hero h1 .grad{background:linear-gradient(90deg,var(--primary),var(--cyan) 55%,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:clamp(1.05rem,2vw,1.25rem);color:var(--text-2);max-width:640px;font-weight:300}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.hero .fine{font-size:.85rem;color:var(--muted)}
+
+/* sections */
+section.band{padding-block:96px}
+.sec-head{display:grid;gap:14px;max-width:720px;margin-bottom:48px}
+.sec-head.center{text-align:center;justify-items:center;margin-inline:auto}
+.sec-head h2{font-size:clamp(2rem,4.2vw,3rem);font-weight:700}
+.sec-head p{color:var(--text-2);font-size:1.12rem;font-weight:300}
+
+/* split feature */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.split + .split{margin-top:112px}
+.split.rev .media{order:-1}
+.split .copy{display:grid;gap:16px}
+.split h2{font-size:clamp(1.9rem,3.8vw,2.7rem);font-weight:700}
+.split .copy > p{color:var(--text-2);font-size:1.08rem;font-weight:300}
+.ticks{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:10px}
+.ticks li{display:grid;grid-template-columns:22px 1fr;gap:10px;color:var(--text)}
+.ticks li::before{content:"";width:18px;height:18px;margin-top:4px;border-radius:50%;background:rgba(var(--cyan-rgb),.14);border:1px solid rgba(var(--cyan-rgb),.5);box-shadow:inset 0 0 0 4px var(--base)}
+.media{position:relative;border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--border);padding:22px;box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+.media::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(140deg,rgba(var(--primary-rgb),.5),transparent 40%,rgba(var(--purple-rgb),.35));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.win-bar{display:flex;gap:6px;margin-bottom:16px}
+.win-bar i{width:10px;height:10px;border-radius:50%;background:var(--medium)}
+.code{font-family:var(--mono);font-size:.8rem;line-height:1.75;color:var(--text-2);overflow-x:auto;white-space:pre;margin:0}
+.code .k{color:var(--purple)} .code .s{color:var(--green)} .code .n{color:var(--coral)} .code .p{color:var(--primary)} .code .c{color:var(--muted);font-style:italic} .code .y{color:var(--yellow)} .code .r{color:var(--pink)}
+
+/* chain timeline in media */
+.chain{display:grid;gap:12px}
+.link{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:14px;border-radius:var(--r-lg);background:var(--elevated);border:1px solid var(--border)}
+.link .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--title);font-weight:700;font-size:1.05rem;color:var(--base)}
+.link .t{display:grid;gap:2px}
+.link .t b{font-weight:600}
+.link .t span{font-size:.85rem;color:var(--text-2)}
+.link .ok{font-family:var(--mono);font-size:.72rem;color:var(--green)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:26px 22px;border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--border);display:grid;gap:6px}
+.stat .v{font-family:var(--title);font-size:clamp(2rem,4vw,2.8rem);font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .l{color:var(--text-2);font-size:.95rem}
+.stat .src{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+
+/* bento products */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.card{--acc:var(--primary);position:relative;overflow:hidden;border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--border);padding:26px;display:grid;align-content:start;gap:12px;grid-column:span 2}
+.card.wide{grid-column:span 3}
+.card::after{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-110px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 22%,transparent) 0%,transparent 70%);pointer-events:none}
+.card .tag{font-family:var(--mono);font-size:.72rem;color:var(--acc);letter-spacing:.04em}
+.card h3{font-size:1.6rem;font-weight:700}
+.card p{color:var(--text-2);font-weight:300}
+.card .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.pill{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:var(--pill);border:1px solid var(--border);color:var(--text-2);background:rgba(255,255,255,.02)}
+.pill.acc{border-color:color-mix(in srgb,var(--acc) 55%,transparent);color:var(--acc)}
+.g-gate{--acc:var(--primary)} .g-warrant{--acc:var(--yellow)} .g-ledger{--acc:var(--cyan)} .g-harbour{--acc:var(--purple)} .g-proof{--acc:var(--green)} .g-bench{--acc:var(--coral)}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.plan{border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--border);padding:28px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:14px}
+.plan.hl{background:linear-gradient(180deg,rgba(var(--primary-rgb),.1),var(--surface) 45%);border-color:rgba(var(--primary-rgb),.55);box-shadow:0 30px 80px -45px rgba(var(--primary-rgb),.8)}
+.plan .pn{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600;font-size:1.1rem}
+.plan .price{font-family:var(--title);font-size:2.6rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.plan .price small{font-size:.95rem;font-weight:400;color:var(--text-2);letter-spacing:0}
+.plan > p{color:var(--text-2);font-size:.95rem}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:.95rem}
+.plan li{display:grid;grid-template-columns:18px 1fr;gap:10px}
+.plan li::before{content:"✓";color:var(--cyan);font-weight:600}
+.table-wrap{margin-top:40px;overflow-x:auto;border-radius:var(--r-xl);border:1px solid var(--border);background:var(--surface)}
+table{width:100%;min-width:700px;border-collapse:collapse;font-size:.95rem}
+th,td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tbody tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;white-space:nowrap}
+td .s{display:block;color:var(--muted);font-size:.85rem}
+.amt{font-variant-numeric:tabular-nums;font-weight:600;color:var(--text)}
+.note{margin-top:16px;font-size:.9rem;color:var(--muted);max-width:80ch}
+
+/* enterprise */
+.ent{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.steps{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:16px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:36px 1fr;gap:14px;color:var(--text-2);counter-increment:s}
+.steps li::before{content:counter(s);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:.85rem;color:var(--primary);background:rgba(var(--primary-rgb),.1);border:1px solid rgba(var(--primary-rgb),.3)}
+.steps b{color:var(--text);font-weight:600;display:block}
+.contact{margin-top:22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.contact code{font-family:var(--mono);font-size:.9rem;background:var(--elevated);border:1px solid var(--border);padding:8px 12px;border-radius:var(--r-md)}
+form{border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--border);padding:26px;display:grid;gap:14px}
+label{display:grid;gap:6px;font-size:.9rem;color:var(--text-2);font-weight:500}
+input,select,textarea{font:inherit;font-size:.98rem;color:var(--text);background:var(--base);border:1px solid var(--border);border-radius:var(--r-md);padding:11px 13px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(var(--primary-rgb),.18)}
+textarea{min-height:100px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.out{font-family:var(--mono);font-size:.82rem;white-space:pre-wrap;background:var(--base);border:1px dashed var(--border);border-radius:var(--r-md);padding:14px;color:var(--text-2)}
+
+/* legal */
+.legal{display:grid;gap:12px;max-width:860px;margin:0 auto}
+details{border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--border);padding-inline:22px}
+summary{cursor:pointer;list-style:none;padding-block:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:1.1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--primary);font-size:1.2rem}
+details[open] summary::after{content:"−"}
+.lb{padding-bottom:22px;display:grid;gap:12px;color:var(--text-2);font-size:.97rem;font-weight:300}
+.lb h4{font-family:var(--body);font-size:1rem;font-weight:600;color:var(--text);letter-spacing:0;margin-top:6px}
+.lb ul{margin:0;padding-left:20px;display:grid;gap:5px}
+
+/* cta */
+.cta{position:relative;overflow:hidden;border-radius:28px;padding:72px 28px;text-align:center;background:var(--floor);border:1px solid var(--border);display:grid;justify-items:center;gap:18px}
+.cta::before{content:"";position:absolute;width:640px;height:640px;max-width:150%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(var(--purple-rgb),.16),rgba(var(--primary-rgb),.08) 45%,transparent 70%);filter:blur(50px);pointer-events:none}
+.cta > *{position:relative}
+.cta h2{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700}
+.cta p{color:var(--text-2);max-width:560px;font-weight:300;font-size:1.1rem}
+
+footer{border-top:1px solid var(--border-soft);margin-top:96px;padding-block:36px 48px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+footer a{color:var(--text-2);text-decoration:none}
+footer a:hover{color:var(--text)}
+footer .links{display:flex;gap:20px;flex-wrap:wrap}
+
+/* motion */
+@media (prefers-reduced-motion:no-preference){
+  .track{animation:drift var(--speed) linear infinite}
+  .track.t1{--speed:120s} .track.t2{--speed:90s;animation-direction:reverse} .track.t3{--speed:70s}
+  .aurora{animation:breathe 12s ease-in-out infinite}
+  .btn{transition:background .15s,border-color .15s,transform .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .card{transition:border-color .2s,transform .2s}
+  .card:hover{border-color:color-mix(in srgb,var(--acc) 55%,var(--border));transform:translateY(-3px)}
+}
+@keyframes drift{from{transform:translate(0,-50%)}to{transform:translate(-50%,-50%)}}
+@keyframes breathe{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+
+@media (max-width:960px){
+  .top nav a:not(.btn){display:none}
+  .split,.ent{grid-template-columns:1fr;gap:36px}
+  .split.rev .media{order:0}
+  .stats{grid-template-columns:1fr 1fr}
+  .bento{grid-template-columns:1fr 1fr}
+  .card,.card.wide{grid-column:span 1}
+  .plans{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  section.band{padding-block:72px}
+  .bento,.stats{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .link{grid-template-columns:40px 1fr}
+  .link .ok{grid-column:2}
+  .evt{width:210px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Prolu home">
+      <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M4 13V3h4.5a3 3 0 0 1 0 6H4" stroke="#011627" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Prolu
+    </a>
+    <nav aria-label="Main">
+      <a href="#products">Products</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#enterprise">Enterprise</a>
+      <a class="btn btn-primary btn-sm" href="#pricing">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="aurora" aria-hidden="true"></div>
+    <div class="drift" aria-hidden="true" id="drift"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <span class="badge"><b>v0.1.0</b> Six products, early preview</span>
+      <h1>Your agents act. <span class="grad">Prolu keeps the receipts.</span></h1>
+      <p class="sub">Verify the code they write, limit what they're allowed to do, run them safely, and keep a record nobody can quietly edit. All on your own servers.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#pricing">Start free</a>
+        <a class="btn btn-ghost" href="#products">See the six products</a>
+      </div>
+      <span class="fine">Self-hosted · Offline license keys · Nothing phones home</span>
+    </div>
+  </div>
+
+  <section class="band" aria-labelledby="f1">
+    <div class="wrap">
+      <div class="split">
+        <div class="copy">
+          <span class="kicker">// incident review</span>
+          <h2 id="f1">One report answers who, what, and why.</h2>
+          <p>Every Prolu product signs a receipt for what it does. When something goes wrong, Ledger follows those receipts and shows the whole chain, with every signature checked.</p>
+          <ul class="ticks">
+            <li>Who allowed the action, and within what limits</li>
+            <li>What actually ran, and whether it ran twice</li>
+            <li>What data it read, and whether it was allowed to</li>
+            <li>What checked the result before it shipped</li>
+          </ul>
+        </div>
+        <div class="media">
+          <div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="chain">
+            <div class="link"><span class="ico" style="background:var(--yellow)">W</span><span class="t"><b>Warrant allowed it</b><span>alice → planner → coder · fs.write repo/acme/*</span></span><span class="ok">✓ signed</span></div>
+            <div class="link"><span class="ico" style="background:var(--purple)">H</span><span class="t"><b>Harbour ran it once</b><span>goal nightly-refactor · step 4 committed</span></span><span class="ok">✓ signed</span></div>
+            <div class="link"><span class="ico" style="background:var(--green)">P</span><span class="t"><b>Proof showed what it read</b><span>3 pages · robots.txt allowed ai-input</span></span><span class="ok">✓ signed</span></div>
+            <div class="link"><span class="ico" style="background:var(--primary)">G</span><span class="t"><b>Gate checked the change</b><span>score 0.12 · approve · 0 critical</span></span><span class="ok">✓ signed</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="split rev">
+        <div class="copy">
+          <span class="kicker">// inside the agent loop</span>
+          <h2>Stop bad code before it's even committed.</h2>
+          <p>Gate plugs into Claude Code and Cursor as a tool, and into git as a pre-commit hook. The agent asks Gate before it commits, and a rejected change never lands.</p>
+          <ul class="ticks">
+            <li>Catches SQL injection, path traversal and leaked secrets</li>
+            <li>Plain-language explanations with a suggested fix</li>
+            <li>Your org's policy, applied the same way everywhere</li>
+          </ul>
+        </div>
+        <div class="media">
+          <div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+<pre class="code"><span class="c">$ git commit -m "add user search"</span>
+<span class="p">gate</span> verifying staged changes…
+
+  <span class="r">✗ reject</span>  score <span class="n">0.81</span>
+
+  <span class="y">critical</span>  api/search.go:42
+  SQL built from user input
+  <span class="k">fix</span>  use a parameterized query:
+       db.Query(<span class="s">"… WHERE name = $1"</span>, q)
+
+  <span class="y">high</span>      config/aws.go:7
+  hard-coded AWS access key
+
+<span class="c">commit blocked · run `gate explain F1` for detail</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0" aria-label="Numbers">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><span class="v" style="color:var(--primary)">0/27</span><span class="l">false alarms on clean changes</span><span class="src">Gate benchmark, deterministic stages</span></div>
+        <div class="stat"><span class="v" style="color:var(--cyan)">8/8</span><span class="l">kinds of tampering caught offline</span><span class="src">Ledger forge-it test matrix</span></div>
+        <div class="stat"><span class="v" style="color:var(--yellow)">20</span><span class="l">agent framework adapters</span><span class="src">Warrant, Go and Python</span></div>
+        <div class="stat"><span class="v" style="color:var(--purple)">0</span><span class="l">steps repeated after a crash</span><span class="src">Harbour two-phase commit</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="products" aria-labelledby="prod-h" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="kicker">// the stack</span>
+        <h2 id="prod-h">Six products. Use one, or all of them.</h2>
+        <p>Each one installs with a single setup script and works on its own. Together they share one signed record.</p>
+      </div>
+      <div class="bento">
+        <article class="card wide g-gate">
+          <span class="tag">VERIFY CODE</span><h3>Gate</h3>
+          <p>Reviews AI-written changes and decides approve, review or reject, with reasons a person can read.</p>
+          <div class="meta"><span class="pill acc">MCP tool</span><span class="pill">pre-commit hook</span><span class="pill">GitHub App</span></div>
+        </article>
+        <article class="card wide g-warrant">
+          <span class="tag">LIMIT AUTHORITY</span><h3>Warrant</h3>
+          <p>Gives each agent a short-lived permission that only covers the job at hand. A stolen token is useless without its key.</p>
+          <div class="meta"><span class="pill acc">MCP + A2A gateway</span><span class="pill">20 adapters</span></div>
+        </article>
+        <article class="card g-ledger">
+          <span class="tag">RECORD DECISIONS</span><h3>Ledger</h3>
+          <p>An append-only, hash-chained log anyone can verify offline.</p>
+          <div class="meta"><span class="pill acc">EU AI Act evidence</span></div>
+        </article>
+        <article class="card g-harbour">
+          <span class="tag">RUN AGENTS</span><h3>Harbour</h3>
+          <p>Long agent jobs that pause for approval and survive crashes without repeating side effects.</p>
+          <div class="meta"><span class="pill acc">crash-safe</span></div>
+        </article>
+        <article class="card g-proof">
+          <span class="tag">PROVE DATA RIGHTS</span><h3>Proof</h3>
+          <p>Signed evidence of what your crawler fetched and whether it was allowed to.</p>
+          <div class="meta"><span class="pill acc">HF dataset cards</span></div>
+        </article>
+        <article class="card wide g-bench" style="grid-column:span 6">
+          <span class="tag">EVALUATE AGENTS</span><h3>Bench</h3>
+          <p>Turns your own repository's bug fixes into a private eval, then scores Claude Code, Codex, Cursor and Aider on it, with confidence intervals instead of a single lucky number.</p>
+          <div class="meta"><span class="pill acc">leak-proof tasks</span><span class="pill">pass@k</span><span class="pill">free forever</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="pricing" aria-labelledby="price-h">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="kicker">// pricing · USD</span>
+        <h2 id="price-h">Free to start. Pay when your team relies on it.</h2>
+        <p>You run everything yourself. A license key unlocks paid features offline.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <div class="pn">Community</div>
+          <div class="price">$0</div>
+          <p>For individuals, open-source projects and evaluation.</p>
+          <ul>
+            <li>All six products, core features</li>
+            <li>Gate on public repos</li>
+            <li>Proof capture and verify at any volume</li>
+            <li>Community support on GitHub</li>
+          </ul>
+          <a class="btn btn-ghost" href="#products">Download</a>
+        </div>
+        <div class="plan hl">
+          <div class="pn">Team <span class="pill acc" style="--acc:var(--primary)">Most popular</span></div>
+          <div class="price">$20<small> / developer / month</small></div>
+          <p>Gate for teams shipping AI-written code every day.</p>
+          <ul>
+            <li>Private repos and org-wide policy</li>
+            <li>Single sign-on for the Gate dashboard</li>
+            <li>Email support</li>
+            <li>Proof Pro available at $299 / month</li>
+          </ul>
+          <a class="btn btn-primary" href="#enterprise">Request a license</a>
+        </div>
+        <div class="plan">
+          <div class="pn">Enterprise</div>
+          <div class="price">Custom</div>
+          <p>The whole governed-agent stack under one contract.</p>
+          <ul>
+            <li>Compliance evidence exports</li>
+            <li>KMS signing and locked S3 archive</li>
+            <li>Scale-out workers and multi-tenant</li>
+            <li>Priority support and invoicing</li>
+          </ul>
+          <a class="btn btn-ghost" href="#enterprise">Talk to us</a>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Product</th><th scope="col">Community</th><th scope="col">Paid</th><th scope="col">Enterprise</th></tr></thead>
+          <tbody>
+            <tr><td>Gate</td><td><span class="amt">$0</span><span class="s">Public repos, solo developers</span></td><td><span class="amt">$20</span> / dev / month<span class="s">Team</span></td><td>Custom<span class="s">Audit export</span></td></tr>
+            <tr><td>Proof</td><td><span class="amt">$0</span><span class="s">Capture, verify, report</span></td><td><span class="amt">$299</span> / month<span class="s">Pro: certificates, PDF, re-checks</span></td><td>From <span class="amt">$15,000</span> / year<span class="s">Multi-org portal, legal holds</span></td></tr>
+            <tr><td>Ledger</td><td><span class="amt">$0</span><span class="s">Full log and verification</span></td><td>—</td><td>Custom<span class="s">Compliance exports, KMS, S3 archive</span></td></tr>
+            <tr><td>Warrant</td><td><span class="amt">$0</span><span class="s">Tokens, gateway, adapters</span></td><td>—</td><td>Custom<span class="s">Gateway tool filtering</span></td></tr>
+            <tr><td>Harbour</td><td><span class="amt">$0</span><span class="s">Up to 2 workers per server</span></td><td>—</td><td>Custom<span class="s">Scale-out workers</span></td></tr>
+            <tr><td>Bench</td><td><span class="amt">$0</span><span class="s">Everything</span></td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Card checkout is being set up. Until it opens, request a license below and we'll send an invoice. Prices exclude any sales tax or VAT that applies where you are.</p>
+    </div>
+  </section>
+
+  <section class="band" id="enterprise" aria-labelledby="ent-h">
+    <div class="wrap ent">
+      <div>
+        <div class="sec-head" style="margin-bottom:12px">
+          <span class="kicker">// invoiced purchases</span>
+          <h2 id="ent-h">Pay by invoice and bank transfer.</h2>
+          <p>Most companies buy this way. It takes three steps.</p>
+        </div>
+        <ol class="steps">
+          <li><span><b>Tell us what you need</b>Products, seats and billing details.</span></li>
+          <li><span><b>Get a quote, then an invoice</b>Pay by ACH, wire or FedNow.</span></li>
+          <li><span><b>Receive your license key</b>It works offline for the whole term.</span></li>
+        </ol>
+        <div class="contact"><span style="color:var(--text-2)">Email</span><code id="email">proluog@gmail.com</code><button class="btn btn-ghost btn-sm" type="button" id="copy">Copy</button></div>
+      </div>
+      <form id="quote" novalidate>
+        <div class="two">
+          <label for="q-name">Your name<input id="q-name" name="name" autocomplete="name" required></label>
+          <label for="q-company">Company<input id="q-company" name="company" autocomplete="organization" required></label>
+        </div>
+        <label for="q-product">What you need
+          <select id="q-product" name="product">
+            <option>Everything (Enterprise stack)</option>
+            <option>Gate Team</option>
+            <option>Proof Pro</option>
+            <option>Proof Enterprise</option>
+            <option>Ledger Enterprise</option>
+            <option>Warrant Enterprise</option>
+            <option>Harbour Enterprise</option>
+          </select>
+        </label>
+        <label for="q-seats">Developers or seats<input id="q-seats" name="seats" inputmode="numeric" placeholder="25"></label>
+        <label for="q-notes">Anything else<textarea id="q-notes" name="notes" placeholder="Deployment, compliance needs, timeline"></textarea></label>
+        <button class="btn btn-primary" type="submit">Prepare my request</button>
+        <div class="out" id="out" hidden></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="band" id="legal" aria-labelledby="legal-h" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="kicker">// effective 25 September 2026</span>
+        <h2 id="legal-h">Terms, privacy and refunds</h2>
+      </div>
+      <div class="legal">
+        <details id="terms">
+          <summary>Terms of Service</summary>
+          <div class="lb">
+            <p>These terms cover your use of Prolu software (Gate, Proof, Ledger, Warrant, Harbour and Bench) and any paid license. By downloading the software or buying a license you agree to them.</p>
+            <h4>Open-source use</h4>
+            <p>Each product's source code is available under the license in its repository (Apache License 2.0 unless the repository says otherwise). Those licenses govern the code; these terms only add rules for paid licenses and support.</p>
+            <h4>Paid licenses</h4>
+            <ul>
+              <li>A license key unlocks the paid features for the edition, seat count and term on your invoice or receipt.</li>
+              <li>Install licensed software on infrastructure you control, for your organisation's internal use. Don't resell, share or publish license keys.</li>
+              <li>Seat counts are checked locally. Going over shows a warning, and we ask you to true up at renewal.</li>
+              <li>When a license expires, paid features keep working for 14 days, then switch off. Your data is never deleted or locked.</li>
+            </ul>
+            <h4>Payment</h4>
+            <p>Card payments for self-serve plans are handled by our reseller and merchant of record, who manages billing, tax and invoicing for those orders. Invoices are due within 30 days by bank transfer unless your quote says otherwise.</p>
+            <h4>Support</h4>
+            <p>Community users get help through the public issue trackers. Paid plans include email support. Enterprise response times are set in your order.</p>
+            <h4>Warranty and liability</h4>
+            <p>The software is provided as is. Version 0.1.0 is an early preview; evaluate it before using it in production. To the extent the law allows, our total liability for any claim is limited to what you paid us in the 12 months before the claim.</p>
+            <h4>Changes</h4>
+            <p>We may update these terms. Material changes will be posted here with a new effective date and won't apply to a license term you've already paid for.</p>
+          </div>
+        </details>
+        <details id="privacy">
+          <summary>Privacy Policy</summary>
+          <div class="lb">
+            <p>Prolu software runs on your own servers. It doesn't send us your code, logs, agent data, crawl data or usage statistics. License checks happen entirely offline.</p>
+            <h4>What we collect</h4>
+            <ul>
+              <li>When you contact us or buy: your name, work email, company, and the billing details we need to invoice you and issue a license.</li>
+              <li>When you pay by card: the payment processor collects card and billing data under its own privacy policy. We see the order, not your card number.</li>
+            </ul>
+            <h4>How we use it</h4>
+            <p>Only to reply to you, issue and renew licenses, provide support, and meet tax and accounting rules. We don't sell personal data or use it for advertising.</p>
+            <h4>Retention and your rights</h4>
+            <p>We keep order records as long as tax law requires, and other contact data until you ask us to delete it. Ask for a copy, a correction or deletion at the email address above.</p>
+          </div>
+        </details>
+        <details id="refunds">
+          <summary>Refund Policy</summary>
+          <div class="lb">
+            <p>If a paid plan doesn't work for you, ask for a refund within 14 days of your first payment and we'll refund it in full.</p>
+            <ul>
+              <li>Monthly plans can be cancelled any time and stay active to the end of the paid month.</li>
+              <li>Annual and Enterprise plans are fully refundable within 14 days of the first payment; after that, per your order.</li>
+              <li>Card refunds go back to the original card. Invoiced payments are returned by bank transfer.</li>
+            </ul>
+            <p>To request a refund, email us with your order or invoice number.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cta">
+      <span class="kicker">// get started</span>
+      <h2>Give your agents limits, and yourself a record.</h2>
+      <p>Install one product in a few minutes, then add the rest when you need them.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <a class="btn btn-primary" href="#pricing">Start free</a>
+        <a class="btn btn-ghost" href="#enterprise">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Prolu. Self-hosted governance for AI agents.</span>
+    <span class="links"><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#refunds">Refunds</a><a href="#enterprise">Contact</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var events = [
+    ['warrant.call.allowed','allow','c-green','fs.read repo/acme/docs/*'],
+    ['gate.run.decided','reject','c-pink','score 0.81 · sql-injection'],
+    ['harbour.effect.committed','step 4','c-purple','nightly-refactor'],
+    ['proof.fetch.captured','allowed','c-green','robots.txt · ai-input'],
+    ['ledger.chain.verified','ok','c-cyan','seq 1–2,418 · root signed'],
+    ['warrant.call.denied','deny','c-pink','fs.write /etc/passwd'],
+    ['bench.run.scored','72%','c-coral','claude-code · 50 tasks'],
+    ['gate.run.decided','approve','c-green','score 0.08'],
+    ['harbour.goal.paused','review','c-yellow','awaiting approval'],
+    ['warrant.token.issued','ttl 5m','c-blue','planner → coder'],
+    ['proof.certificate.signed','clean','c-green','dataset sha256:7e1d…'],
+    ['ledger.anchor.posted','tsa','c-cyan','RFC 3161 timestamp']
+  ];
+  function card(e){
+    return '<div class="evt"><div class="row"><span class="name">'+e[0]+'</span><span class="chip '+e[2]+'">'+e[1]+'</span></div><span>'+e[3]+'</span></div>';
+  }
+  function row(offset){
+    var list = events.slice(offset).concat(events.slice(0,offset));
+    var html = list.map(card).join('');
+    return html + html; // duplicated so the loop is seamless
+  }
+  var d = document.getElementById('drift');
+  d.innerHTML = '<div class="track t1">'+row(0)+'</div><div class="track t2">'+row(4)+'</div><div class="track t3">'+row(8)+'</div>';
+
+  var email = document.getElementById('email').textContent;
+  document.getElementById('copy').addEventListener('click', function(){
+    var b = this;
+    function sel(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('email')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected'; }
+    try { navigator.clipboard.writeText(email).then(function(){ b.textContent='Copied'; }, sel); } catch(e){ sel(); }
+  });
+
+  var f = document.getElementById('quote'), out = document.getElementById('out');
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var el = f.elements, name = el.name.value.trim(), co = el.company.value.trim();
+    out.hidden = false;
+    if (!name || !co) { out.textContent = 'Add your name and company, then try again.'; return; }
+    out.textContent = 'Quote request\nName: '+name+'\nCompany: '+co+'\nProduct: '+el.product.value+
+      '\nSeats: '+(el.seats.value.trim()||'not given')+'\nNotes: '+(el.notes.value.trim()||'none')+
+      '\n\nCopy this and send it to '+email+'. We reply within one business day.';
+  });
+})();
+</script>
+</body>
+</html>

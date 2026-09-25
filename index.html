@@ -636,7 +636,7 @@ var PADDLE = {
     var q = new URLSearchParams({ action: 'order', plan: key, seats: String(seats), name: name, email: email });
     fetch(AUTOPAY_URL + '?' + q.toString()).then(function(r){ return r.json(); }).then(function(d){
       if (!d.ok) { msg.textContent = d.error || 'Something went wrong. Email proluog@gmail.com.'; return; }
-      msg.textContent = 'Order ' + d.order_id + ': send exactly $' + d.amount + ' USD by bank transfer to:\n\n' + d.instructions +
+      msg.textContent = 'Order ' + d.order_id + ': send exactly $' + d.amount + ' USD by bank transfer to:\n\n' + String(d.instructions).replace(/\s+(?=(Bank|Account number|Account type|ACH routing number|Routing number|Transfer type|SWIFT|Bank address)\s*:)/g, '\n') +
         '\n\nThe exact cents identify your order. Your license key is emailed to ' + email + ' automatically once the money arrives. These details were also emailed to you.';
       msg.style.whiteSpace = 'pre-wrap';
     }).catch(function(){ msg.textContent = 'Could not reach checkout. Email proluog@gmail.com and we will invoice you.'; });

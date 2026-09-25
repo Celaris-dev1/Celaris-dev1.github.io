@@ -442,9 +442,13 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
           <span></span>
           <button class="btn btn-primary" type="button" data-buy="proof-pro">Buy</button>
         </div>
+        <div class="two" id="buyer">
+          <label for="b-name">Name or company<input id="b-name" autocomplete="organization"></label>
+          <label for="b-email">Email for your license<input id="b-email" type="email" autocomplete="email"></label>
+        </div>
         <p class="buy-msg" id="buy-msg" role="status" hidden></p>
       </div>
-      <p class="note">Checkout is handled by Paddle, our reseller and merchant of record, who charges any sales tax or VAT and sends your receipt. Your license key arrives by email after payment. Enterprise and invoiced purchases: use the form below.</p>
+      <p class="note">Pay by US bank transfer (ACH). You get an exact amount to send, and your license key is emailed automatically within minutes of the money arriving. Enterprise and invoiced purchases: use the form below.</p>
     </div>
   </section>
 
@@ -574,6 +578,8 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
 //   Developer tools -> Authentication -> client-side token (starts with live_ or test_)
 //   Catalog -> Products -> each price's ID (starts with pri_)
 // Client-side tokens and price IDs are meant to be public; never put an API key here.
+// Bank-transfer autopay: the Google Apps Script web app URL (ends in /exec).
+var AUTOPAY_URL = '';
 var PADDLE = {
   environment: 'production',   // 'sandbox' while testing with a test_ token
   clientToken: '',
@@ -589,10 +595,12 @@ var PADDLE = {
     }
   } catch (e) { ready = false; }
   var msg = document.getElementById('buy-msg');
+  if (!AUTOPAY_URL) document.getElementById('buyer').style.display = 'none';
   document.querySelectorAll('[data-buy]').forEach(function(el){
     el.addEventListener('click', function(ev){
       var key = el.getAttribute('data-buy'), price = PADDLE.prices[key];
       if (el.tagName === 'A') { ev.preventDefault(); document.getElementById('buy').scrollIntoView({behavior:'smooth', block:'center'}); if (key === 'gate-team') return; }
+      if ((!ready || !price) && AUTOPAY_URL) { autopay(key); return; }
       if (!ready || !price) {
         msg.hidden = false;
         msg.textContent = 'Card checkout opens very soon. For now, request a license with the form below and we will invoice you.';
@@ -603,6 +611,20 @@ var PADDLE = {
       Paddle.Checkout.open({ items: [{ priceId: price, quantity: qty }] });
     });
   });
+  function autopay(key){
+    var name = document.getElementById('b-name').value.trim(), email = document.getElementById('b-email').value.trim();
+    msg.hidden = false;
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Enter your name and email above first.'; document.getElementById('b-name').focus(); return; }
+    var seats = Math.max(1, Math.min(500, parseInt(document.getElementById('gate-seats').value, 10) || 1));
+    msg.textContent = 'Creating your order…';
+    var q = new URLSearchParams({ action: 'order', plan: key, seats: String(seats), name: name, email: email });
+    fetch(AUTOPAY_URL + '?' + q.toString()).then(function(r){ return r.json(); }).then(function(d){
+      if (!d.ok) { msg.textContent = d.error || 'Something went wrong. Email proluog@gmail.com.'; return; }
+      msg.textContent = 'Order ' + d.order_id + ': send exactly $' + d.amount + ' USD by bank transfer to:\n\n' + d.instructions +
+        '\n\nThe exact cents identify your order. Your license key is emailed to ' + email + ' automatically once the money arrives. These details were also emailed to you.';
+      msg.style.whiteSpace = 'pre-wrap';
+    }).catch(function(){ msg.textContent = 'Could not reach checkout. Email proluog@gmail.com and we will invoice you.'; });
+  }
 })();
 </script>
 <script>

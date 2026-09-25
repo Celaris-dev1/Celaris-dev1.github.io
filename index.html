@@ -226,6 +226,7 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
 .buy-item label{display:grid;gap:4px;font-size:.8rem}
 .buy-item input{width:110px;padding:9px 11px}
 .billing{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:.95rem}.billing label{display:flex;gap:8px;align-items:center;cursor:pointer}.billing .pill{white-space:nowrap;border-radius:999px}
+.pill.gh{color:var(--primary);text-decoration:none;border-color:var(--primary)}.pill.gh:hover{background:var(--primary);color:var(--bg,#011627)}
 .buy-msg{font-size:.92rem;color:var(--yellow);padding:12px 14px;border:1px dashed var(--border);border-radius:var(--r-md)}
 @media (max-width:560px){.buy-item{grid-template-columns:1fr}.buy-item input{width:100%}}
 </style>
@@ -348,17 +349,17 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
         <article class="card wide g-warrant">
           <span class="tag">LIMIT AUTHORITY</span><h3>Warrant</h3>
           <p>Gives each agent a short-lived permission that only covers the job at hand. A stolen token is useless without its key.</p>
-          <div class="meta"><span class="pill acc">MCP + A2A gateway</span><span class="pill">20 adapters</span></div>
+          <div class="meta"><span class="pill acc">MCP + A2A gateway</span><span class="pill">20 adapters</span><a class="pill gh" href="https://github.com/Celaris-dev1/Warrant" target="_blank" rel="noopener">★ Open source on GitHub</a></div>
         </article>
         <article class="card g-ledger">
           <span class="tag">RECORD DECISIONS</span><h3>Ledger</h3>
           <p>An append-only, hash-chained log anyone can verify offline.</p>
-          <div class="meta"><span class="pill acc">EU AI Act evidence</span></div>
+          <div class="meta"><span class="pill acc">EU AI Act evidence</span><a class="pill gh" href="https://github.com/Celaris-dev1/Ledger" target="_blank" rel="noopener">★ Open source on GitHub</a></div>
         </article>
         <article class="card g-harbour">
           <span class="tag">RUN AGENTS</span><h3>Harbour</h3>
           <p>Long agent jobs that pause for approval and survive crashes without repeating side effects.</p>
-          <div class="meta"><span class="pill acc">crash-safe</span></div>
+          <div class="meta"><span class="pill acc">crash-safe</span><a class="pill gh" href="https://github.com/Celaris-dev1/Harbour-" target="_blank" rel="noopener">★ Open source on GitHub</a></div>
         </article>
         <article class="card g-proof">
           <span class="tag">PROVE DATA RIGHTS</span><h3>Proof</h3>
@@ -368,7 +369,7 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
         <article class="card wide g-bench" style="grid-column:span 6">
           <span class="tag">EVALUATE AGENTS</span><h3>Bench</h3>
           <p>Turns your own repository's bug fixes into a private eval, then scores Claude Code, Codex, Cursor and Aider on it, with confidence intervals instead of a single lucky number.</p>
-          <div class="meta"><span class="pill acc">leak-proof tasks</span><span class="pill">pass@k</span><span class="pill">free forever</span></div>
+          <div class="meta"><span class="pill acc">leak-proof tasks</span><span class="pill">pass@k</span><span class="pill">free forever</span><a class="pill gh" href="https://github.com/Celaris-dev1/Bench" target="_blank" rel="noopener">★ Open source on GitHub</a></div>
         </article>
       </div>
     </div>

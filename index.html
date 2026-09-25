@@ -225,6 +225,7 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
 .buy-item > div span{color:var(--text-2);font-size:.92rem}
 .buy-item label{display:grid;gap:4px;font-size:.8rem}
 .buy-item input{width:110px;padding:9px 11px}
+.billing{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:.95rem}.billing label{display:flex;gap:8px;align-items:center;cursor:pointer}.billing .pill{white-space:nowrap;border-radius:999px}
 .buy-msg{font-size:.92rem;color:var(--yellow);padding:12px 14px;border:1px dashed var(--border);border-radius:var(--r-md)}
 @media (max-width:560px){.buy-item{grid-template-columns:1fr}.buy-item input{width:100%}}
 </style>
@@ -395,13 +396,14 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
         </div>
         <div class="plan hl">
           <div class="pn">Team <span class="pill acc" style="--acc:var(--primary)">Most popular</span></div>
-          <div class="price">$20<small> / developer / month</small></div>
+          <div class="price">$200<small> / developer / year</small></div>
           <p>Gate for teams shipping AI-written code every day.</p>
           <ul>
             <li>Private repos and org-wide policy</li>
             <li>Single sign-on for the Gate dashboard</li>
             <li>Email support</li>
-            <li>Proof Pro available at $299 / month</li>
+            <li>Or $20 / developer / month</li>
+            <li>Proof Starter $990 / year, Pro $2,990 / year</li>
           </ul>
           <a class="btn btn-primary" href="#buy" data-buy="gate-team">Buy Gate Team</a>
         </div>
@@ -422,8 +424,8 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
         <table>
           <thead><tr><th scope="col">Product</th><th scope="col">Community</th><th scope="col">Paid</th><th scope="col">Enterprise</th></tr></thead>
           <tbody>
-            <tr><td>Gate</td><td><span class="amt">$0</span><span class="s">Public repos, solo developers</span></td><td><span class="amt">$20</span> / dev / month<span class="s">Team</span></td><td>Custom<span class="s">Audit export</span></td></tr>
-            <tr><td>Proof</td><td><span class="amt">$0</span><span class="s">Capture, verify, report</span></td><td><span class="amt">$299</span> / month<span class="s">Pro: certificates, PDF, re-checks</span></td><td>From <span class="amt">$15,000</span> / year<span class="s">Multi-org portal, legal holds</span></td></tr>
+            <tr><td>Gate</td><td><span class="amt">$0</span><span class="s">Public repos, solo developers</span></td><td><span class="amt">$200</span> / dev / year<span class="s">Team · or $20 / dev / month</span></td><td>Custom<span class="s">Audit export</span></td></tr>
+            <tr><td>Proof</td><td><span class="amt">$0</span><span class="s">Capture, verify, report</span></td><td><span class="amt">$990</span> / year<span class="s">Starter: certificates, PDF · $99 / month</span><span class="amt">$2,990</span> / year<span class="s">Pro: adds re-checks, 1-year retention · $299 / month</span></td><td>From <span class="amt">$15,000</span> / year<span class="s">Multi-org portal, legal holds</span></td></tr>
             <tr><td>Ledger</td><td><span class="amt">$0</span><span class="s">Full log and verification</span></td><td>—</td><td>Custom<span class="s">Compliance exports, KMS, S3 archive</span></td></tr>
             <tr><td>Warrant</td><td><span class="amt">$0</span><span class="s">Tokens, gateway, adapters</span></td><td>—</td><td>Custom<span class="s">Gateway tool filtering</span></td></tr>
             <tr><td>Harbour</td><td><span class="amt">$0</span><span class="s">Up to 2 workers per server</span></td><td>—</td><td>Custom<span class="s">Scale-out workers</span></td></tr>
@@ -432,13 +434,22 @@ footer .links{display:flex;gap:20px;flex-wrap:wrap}
         </table>
       </div>
       <div class="buy" id="buy">
+        <div class="billing" role="radiogroup" aria-label="Billing period">
+          <label><input type="radio" name="period" value="yearly" checked> Yearly <span class="pill acc" style="--acc:var(--green)">2 months free</span></label>
+          <label><input type="radio" name="period" value="monthly"> Monthly</label>
+        </div>
         <div class="buy-item">
-          <div><b>Gate Team</b><span>$20 per developer / month</span></div>
+          <div><b>Gate Team</b><span data-y="$200 per developer / year" data-m="$20 per developer / month">$200 per developer / year</span></div>
           <label for="gate-seats">Developers<input id="gate-seats" type="number" min="1" max="500" value="5" inputmode="numeric"></label>
           <button class="btn btn-primary" type="button" data-buy="gate-team">Buy</button>
         </div>
         <div class="buy-item">
-          <div><b>Proof Pro</b><span>$299 / month</span></div>
+          <div><b>Proof Starter</b><span data-y="$990 / year · certificates, PDF" data-m="$99 / month · certificates, PDF">$990 / year · certificates, PDF</span></div>
+          <span></span>
+          <button class="btn btn-primary" type="button" data-buy="proof-starter">Buy</button>
+        </div>
+        <div class="buy-item">
+          <div><b>Proof Pro</b><span data-y="$2,990 / year · adds re-checks, 1-year retention" data-m="$299 / month · adds re-checks, 1-year retention">$2,990 / year · adds re-checks, 1-year retention</span></div>
           <span></span>
           <button class="btn btn-primary" type="button" data-buy="proof-pro">Buy</button>
         </div>
@@ -583,7 +594,7 @@ var AUTOPAY_URL = '';
 var PADDLE = {
   environment: 'production',   // 'sandbox' while testing with a test_ token
   clientToken: '',
-  prices: { 'gate-team': '', 'proof-pro': '' }
+  prices: { 'gate-team-yearly': '', 'gate-team-monthly': '', 'proof-starter-yearly': '', 'proof-starter-monthly': '', 'proof-pro-yearly': '', 'proof-pro-monthly': '' }
 };
 (function(){
   var ready = false;
@@ -595,11 +606,16 @@ var PADDLE = {
     }
   } catch (e) { ready = false; }
   var msg = document.getElementById('buy-msg');
+  function period(){ var r = document.querySelector('input[name=period]:checked'); return r ? r.value : 'yearly'; }
+  document.querySelectorAll('input[name=period]').forEach(function(r){ r.addEventListener('change', function(){
+    var p = period();
+    document.querySelectorAll('[data-y]').forEach(function(e){ e.textContent = e.getAttribute(p === 'yearly' ? 'data-y' : 'data-m'); });
+  }); });
   if (!AUTOPAY_URL) document.getElementById('buyer').style.display = 'none';
   document.querySelectorAll('[data-buy]').forEach(function(el){
     el.addEventListener('click', function(ev){
-      var key = el.getAttribute('data-buy'), price = PADDLE.prices[key];
-      if (el.tagName === 'A') { ev.preventDefault(); document.getElementById('buy').scrollIntoView({behavior:'smooth', block:'center'}); if (key === 'gate-team') return; }
+      var base = el.getAttribute('data-buy'), key = base + '-' + period(), price = PADDLE.prices[key];
+      if (el.tagName === 'A') { ev.preventDefault(); document.getElementById('buy').scrollIntoView({behavior:'smooth', block:'center'}); if (base === 'gate-team') return; }
       if ((!ready || !price) && AUTOPAY_URL) { autopay(key); return; }
       if (!ready || !price) {
         msg.hidden = false;
@@ -607,7 +623,7 @@ var PADDLE = {
         return;
       }
       var qty = 1;
-      if (key === 'gate-team') { qty = Math.max(1, Math.min(500, parseInt(document.getElementById('gate-seats').value, 10) || 1)); }
+      if (base === 'gate-team') { qty = Math.max(1, Math.min(500, parseInt(document.getElementById('gate-seats').value, 10) || 1)); }
       Paddle.Checkout.open({ items: [{ priceId: price, quantity: qty }] });
     });
   });

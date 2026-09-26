@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prolu Downloads</title>
+<meta name="description" content="Download Gate and Proof v0.1.0, then activate your license key.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --base:#011627; --surface:#0A1E30; --elevated:#132A3E; --border:#2A3F51;
+  --text:#D6DEEB; --text-2:#9DB2C0; --muted:#7E8E94;
+  --primary:#82AAFF; --cyan:#7FDBCA; --yellow:#FFCB6B; --green:#C3E88D;
+  --body:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Fira Code",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--base);color:var(--text);font:16px/1.6 var(--body)}
+a{color:var(--primary)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+header{border-bottom:1px solid var(--border);padding:16px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{color:var(--text);text-decoration:none;font-weight:700;font-size:1.2rem}
+h1{font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.15;margin:48px 0 8px}
+.lead{color:var(--text-2);margin:0 0 32px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin:0 0 24px}
+.card h2{margin:0 0 4px;font-size:1.4rem}
+.card .sub{color:var(--text-2);margin:0 0 16px}
+.kicker{font-family:var(--mono);font-size:.8rem;color:var(--cyan)}
+ol{padding-left:20px}
+li{margin:0 0 14px}
+pre{background:#010E18;border:1px solid var(--border);border-radius:8px;padding:12px 14px;overflow-x:auto;font:13.5px/1.55 var(--mono);color:var(--green);margin:8px 0 0;white-space:pre}
+table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:8px}
+th,td{text-align:left;padding:8px 6px;border-top:1px solid var(--border);vertical-align:top}
+th{color:var(--muted);font-weight:500}
+td code{font-family:var(--mono);font-size:.75rem;color:var(--muted);word-break:break-all}
+.note{color:var(--text-2);font-size:.92rem}
+footer{color:var(--muted);font-size:.9rem;padding:32px 0 48px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="/">Prolu</a><a href="/#pricing">Pricing</a></div></header>
+<main class="wrap">
+  <h1>Downloads</h1>
+  <p class="lead">Install the tool, then activate the license key from your email. The free edition works with no key at all.</p>
+
+  <section class="card" id="gate">
+    <span class="kicker">v0.1.0 · macOS and Linux</span>
+    <h2>Gate</h2>
+    <p class="sub">Verifies AI-written code before it merges.</p>
+    <ol>
+      <li>Install (detects your system automatically):
+<pre>curl -fsSL https://celaris-dev1.github.io/download/gate/v0.1.0/gate-v0.1.0-$(uname -s | tr A-Z a-z)-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz | tar xz
+sudo mv gate /usr/local/bin/</pre></li>
+      <li>Activate your license:
+<pre>gate license install PASTE-YOUR-KEY-HERE
+gate license show</pre></li>
+    </ol>
+    <table>
+      <tr><th>File</th><th>SHA-256</th></tr>
+      <tr><td><a href="gate/v0.1.0/gate-v0.1.0-darwin-arm64.tar.gz">macOS (Apple silicon)</a></td><td><code>091ca9a0d4a2cc9ac7a174fcd52a1380ed9c04f8711f5c4fa51d7f2d565e0017</code></td></tr>
+      <tr><td><a href="gate/v0.1.0/gate-v0.1.0-darwin-amd64.tar.gz">macOS (Intel)</a></td><td><code>d710444343094d8ac508ac79cf898abda093f0446b6e4ebc285f71b48ce3a33c</code></td></tr>
+      <tr><td><a href="gate/v0.1.0/gate-v0.1.0-linux-amd64.tar.gz">Linux (x86-64)</a></td><td><code>f63081d6d24172c26ffe90ee2eee56aad5f748add039ca26d364a25b9d38bf41</code></td></tr>
+      <tr><td><a href="gate/v0.1.0/gate-v0.1.0-linux-arm64.tar.gz">Linux (ARM64)</a></td><td><code>013e62c60c3e2e1984be1b8109b7f403f80ac7cf14a35020e0cb58f8651b5b68</code></td></tr>
+    </table>
+    <p class="note">Windows: use the Linux build inside WSL.</p>
+  </section>
+
+  <section class="card" id="proof">
+    <span class="kicker">v0.1.0 · Node.js 22+</span>
+    <h2>Proof</h2>
+    <p class="sub">Signed evidence of what your crawler fetched and whether it was allowed to.</p>
+    <ol>
+      <li>Install:
+<pre>npm install -g https://celaris-dev1.github.io/download/proof/v0.1.0/proof-0.1.0.tgz</pre></li>
+      <li>Activate your license:
+<pre>proof license install PASTE-YOUR-KEY-HERE
+proof license show</pre></li>
+    </ol>
+    <table>
+      <tr><th>File</th><th>SHA-256</th></tr>
+      <tr><td><a href="proof/v0.1.0/proof-0.1.0.tgz">proof-0.1.0.tgz</a></td><td><code>d8775015ed5fdbcfbe4329f4ab9ead236976d25dafc75ba35d3c3e0e3c4d8d1e</code></td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Open-source tools</h2>
+    <p class="sub">Warrant, Ledger, Harbour and Bench install from their GitHub repositories.</p>
+    <p><a href="https://github.com/Celaris-dev1/Warrant">Warrant</a> · <a href="https://github.com/Celaris-dev1/Ledger">Ledger</a> · <a href="https://github.com/Celaris-dev1/Harbour-">Harbour</a> · <a href="https://github.com/Celaris-dev1/Bench">Bench</a></p>
+  </section>
+</main>
+<footer class="wrap">Need help? Email <a href="mailto:proluog@gmail.com">proluog@gmail.com</a>.</footer>
+</body>
+</html>

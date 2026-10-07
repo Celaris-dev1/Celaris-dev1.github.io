@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Prolu: self-hosted governance for AI agents. Verify code, limit authority, run agents safely, and keep a tamper-evident record.">
+<meta name="description" content="Prosper: a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a playable, verified build. From the makers of Prolu.">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23000%27/%3E%3Cpath d=%27M11 25V7h6.5a6 6 0 0 1 0 12H11%27 stroke=%27%237C93FF%27 stroke-width=%273.4%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
-<title>Prolu</title>
+<title>Prosper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
@@ -296,6 +296,45 @@ footer a:hover{color:var(--text)}
   .stat .v{font-size:2rem}
   .final{padding-block:110px}
 }
+
+/* prosper */
+.win img.shot{display:block;width:100%;height:auto}
+.pipe{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--panel);counter-reset:p}
+.pipe li{padding:22px 18px;border-right:1px solid var(--line);display:grid;gap:8px;align-content:start;counter-increment:p}
+.pipe li:last-child{border-right:0}
+.pipe li::before{content:"0" counter(p);font:400 .74rem var(--mono);color:var(--blue-hi)}
+.pipe b{font-weight:500;font-size:1.05rem}
+.pipe span{font-family:var(--serif);color:var(--text-2);font-size:.98rem;line-height:1.4}
+.pipe li:nth-child(6){background:radial-gradient(100% 80% at 50% 0%,rgba(var(--blue-rgb),.16),transparent)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.gshot{margin:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--panel)}
+.gshot img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.gshot figcaption{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border-top:1px solid var(--line)}
+.gshot figcaption b{font-weight:500}
+.gshot figcaption span{font:400 .74rem var(--mono);color:var(--muted);align-self:center;text-align:right}
+.bignum{display:grid;justify-items:center;text-align:center;gap:8px}
+.bignum b{font-size:6rem;font-weight:500;letter-spacing:-.06em;line-height:1}
+.bignum b small{font-size:2.4rem;color:var(--muted)}
+.bignum span{font:400 .82rem var(--mono);color:var(--text-2)}
+.bignum em{font-family:var(--serif);color:var(--muted);max-width:34ch;font-size:1rem}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:420px}
+.chips .tag{font-size:.8rem;padding:9px 13px}
+.final .eyebrow{margin-bottom:22px}
+.divide{text-align:center;padding:120px 24px 0;border-top:1px solid var(--line);display:grid;justify-items:center;gap:14px}
+.divide .serif{font-size:1.2rem;color:var(--text-2);max-width:46ch}
+.divide .eyebrow{margin:0}
+em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.025em;color:#C9D1FF}
+.unified{padding-top:80px}
+@media (max-width:1000px){
+  .pipe{grid-template-columns:1fr 1fr}
+  .pipe li{border-bottom:1px solid var(--line)}
+  .pipe li:nth-child(2n){border-right:0}
+  .gallery{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .gallery{grid-template-columns:1fr}
+  .bignum b{font-size:4.4rem}
+}
 </style>
 </head>
 <body>
@@ -303,19 +342,20 @@ footer a:hover{color:var(--text)}
 <header class="top" id="top-bar">
   <div class="bar">
     <div class="l">
-      <a class="word" href="#top" aria-label="Prolu home">PROLU</a>
+      <a class="word" href="#top" aria-label="Prosper home">PROSPER</a>
       <a class="chip-link" href="https://github.com/Celaris-dev1" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.6 0 0 3.6 0 8c0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.5.8.5 1.5v2.2c0 .2.1.5.6.4C13.7 14.5 16 11.5 16 8c0-4.4-3.6-8-8-8z"/></svg>
         Open source
       </a>
     </div>
     <nav class="r" aria-label="Main">
-      <a class="navlink hide-m" href="#products">Products</a>
+      <a class="navlink hide-m" href="#games">Games</a>
+      <a class="navlink hide-m" href="#prolu">Prolu</a>
       <a class="navlink hide-m" href="#pricing">Pricing</a>
       <a class="navlink" href="#enterprise">Enterprise</a>
-      <a class="btn btn-dark btn-sm" href="/download/">
+      <a class="btn btn-dark btn-sm" href="mailto:proluog@gmail.com?subject=Prosper%20launch%20list">
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download
+        Get access
       </a>
     </nav>
   </div>
@@ -324,124 +364,109 @@ footer a:hover{color:var(--text)}
 <main id="top">
   <section class="hero">
     <canvas id="stars" aria-hidden="true"></canvas>
-    <span class="badge">v0.1.0 <i></i> Self-hosted <i></i> Early preview</span>
-    <h1>Your agents act. Prolu <em>keeps the receipts.</em></h1>
-    <p class="sub">Verify the code they write, limit what they can touch, run them safely, and keep a record nobody can quietly edit. All on your own servers.</p>
+    <span class="badge">Prosper <i></i> Self-hosted <i></i> Launching 20 Oct</span>
+    <h1>Describe a game. <em>Prosper builds it.</em></h1>
+    <p class="sub">A self-hosted AI game builder for 2D and 3D web games. It splits your idea into parts, has models write each one, checks every part, plays the result in a headless browser and repairs what fails.</p>
     <div class="ctas">
-      <a class="btn btn-blue" href="/download/">
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download for macOS &amp; Linux
+      <a class="btn btn-blue" href="mailto:proluog@gmail.com?subject=Prosper%20launch%20list">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h12v8H2zM2 4l6 5 6-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        Get launch access
       </a>
-      <a class="btn btn-dark" href="#pricing">See pricing</a>
+      <a class="btn btn-dark" href="#games">See games it built</a>
     </div>
-    <span class="fine">Offline license keys <b>·</b> Nothing phones home</span>
+    <span class="fine">Phaser for 2D <b>·</b> three.js for 3D <b>·</b> Runs on your own server</span>
 
     <div class="stage rv">
-      <div class="win" role="img" aria-label="Prolu showing an incident report: Warrant allowed the action, Harbour ran it once, Proof logged what it read, and Gate blocked a commit with SQL injection.">
+      <div class="win">
         <div class="win-top">
           <span class="dots"><i></i><i></i><i></i></span>
-          <span class="win-title">incident #2418 · nightly-refactor</span>
-          <span class="win-tabs"><span class="on">Chain</span><span>Diff</span><span>Export</span></span>
+          <span class="win-title">Prosper · Conductor</span>
+          <span class="win-tabs"><span class="on">Units</span><span>Spec</span><span>Events</span></span>
         </div>
-        <div class="win-body">
-          <div class="side">
-            <span class="h">PROLU</span>
-            <span class="on"><i style="background:var(--teal)"></i>Ledger</span>
-            <span><i style="background:var(--blue)"></i>Gate</span>
-            <span><i style="background:var(--amber)"></i>Warrant</span>
-            <span><i style="background:var(--violet)"></i>Harbour</span>
-            <span><i style="background:var(--green)"></i>Proof</span>
-            <span><i style="background:var(--orange)"></i>Bench</span>
-            <span class="sec">RECENT</span>
-            <span>seq 2,418 ✓</span>
-            <span>seq 2,417 ✓</span>
-          </div>
-          <div class="pane">
-            <span class="ph">SIGNED CHAIN</span>
-            <div class="rcpt"><span class="ic" style="background:var(--amber)">W</span><span><b>Warrant allowed it</b><small>alice → planner → coder</small></span><span class="ok">✓ signed</span></div>
-            <div class="rcpt"><span class="ic" style="background:var(--violet)">H</span><span><b>Harbour ran it once</b><small>step 4 committed</small></span><span class="ok">✓ signed</span></div>
-            <div class="rcpt"><span class="ic" style="background:var(--green)">P</span><span><b>Proof logged reads</b><small>3 pages · robots allowed</small></span><span class="ok">✓ signed</span></div>
-            <div class="rcpt"><span class="ic" style="background:var(--blue)">G</span><span><b>Gate checked it</b><small>score 0.81 · reject</small></span><span class="ok">✓ signed</span></div>
-          </div>
-          <div class="pane">
-            <span class="ph">GATE · PRE-COMMIT</span>
-<pre class="term"><span class="t-c">$ git commit -m "add search"</span>
-<span class="t-b">gate</span> verifying staged changes…
-
-  <span class="t-r">✗ reject</span>  score <span class="t-y">0.81</span>
-
-  <span class="t-y">critical</span> api/search.go:42
-  SQL built from user input
-  <span class="t-v">fix</span> use a parameterized query
-
-  <span class="t-y">high</span>     config/aws.go:7
-  hard-coded AWS access key
-
-<span class="t-c">commit blocked</span></pre>
-            <div class="prompt">gate explain F1 <i>↵</i></div>
-          </div>
-        </div>
+        <img class="shot" src="img/conductor.jpg" width="1352" height="654" alt="Prosper's Conductor screen: a game brief on the left and the eight build units it was split into on the right, each with its status.">
       </div>
     </div>
   </section>
 
-  <section class="sp" aria-label="What Prolu does">
+  <section class="sp" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">How a build works</span>
+        <h2 id="how-h">From brief to playable game</h2>
+        <p>Every step is checked. A game only counts when a headless browser can <em>actually play it</em>.</p>
+      </div>
+      <ol class="pipe rv">
+        <li><b>Spec</b><span>Title, genre, platform and description.</span></li>
+        <li><b>Decompose</b><span>Systems, scenes, assets and glue.</span></li>
+        <li><b>Build</b><span>Models write each unit, with fallbacks across providers.</span></li>
+        <li><b>Verify</b><span>Imports resolve, exports exist, scenes connect.</span></li>
+        <li><b>Merge</b><span>Units bundle into one game.</span></li>
+        <li><b>Play gate</b><span>A headless browser boots it and reaches play.</span></li>
+        <li><b>Repair</b><span>An agent fixes what fails until it passes.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sp" id="games" aria-labelledby="games-h" style="padding-top:20px">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Built by Prosper</span>
+        <h2 id="games-h">Games that passed the play test</h2>
+        <p>Finished builds exactly as the pipeline produced them, captured mid-play.</p>
+      </div>
+      <div class="gallery">
+        <figure class="gshot rv"><img src="img/void-runner.jpg" width="960" height="540" loading="lazy" alt="Void Runner: a vertical space shooter with enemy ships."><figcaption><b>Void Runner</b><span>Space shooter</span></figcaption></figure>
+        <figure class="gshot rv"><img src="img/crystal-caverns.jpg" width="960" height="540" loading="lazy" alt="Crystal Caverns: a platformer with crystals, lives and floating platforms."><figcaption><b>Crystal Caverns</b><span>Platformer</span></figcaption></figure>
+        <figure class="gshot rv"><img src="img/slime-hopper-4.jpg" width="960" height="540" loading="lazy" alt="Slime Hopper 4: a platformer with gems and a slime enemy."><figcaption><b>Slime Hopper 4</b><span>Platformer</span></figcaption></figure>
+        <figure class="gshot rv"><img src="img/ocean-tower-defense.jpg" width="480" height="270" loading="lazy" alt="A tower defense game with a winding path, towers and waves."><figcaption><b>Tower Defense</b><span>Beta · prompt-to-game</span></figcaption></figure>
+        <figure class="gshot rv"><img src="img/boat-top-down-racer.jpg" width="480" height="270" loading="lazy" alt="A top-down racer with laps, position and a timer."><figcaption><b>Top-Down Racer</b><span>Beta · prompt-to-game</span></figcaption></figure>
+        <figure class="gshot rv"><img src="img/pirate-tactics-grid.jpg" width="480" height="270" loading="lazy" alt="A turn-based tactics grid with a hand of cards."><figcaption><b>Tactics Grid</b><span>Beta · prompt-to-game</span></figcaption></figure>
+      </div>
+      <p class="note" style="margin-inline:auto;text-align:center">Prompt-to-game is in beta: games boot and play, but don't always match the brief yet. Templates are gate-tested by hand.</p>
+    </div>
+  </section>
+
+  <section class="sp" aria-label="What ships with Prosper" style="padding-top:40px">
     <div class="wrap">
       <div class="cards">
         <article class="fcard rv">
-          <h3>Stop bad code before it's committed</h3>
-          <p>Gate plugs into Claude Code, Cursor and git. A rejected change never lands.</p>
+          <h3>Start from a template that already plays</h3>
+          <p>Hand-built templates, each tested in a real browser. A build can start from one and change it.</p>
+          <div class="demo"><div class="bignum"><b>44<small>/45</small></b><span>templates pass the play gate</span><em>19 in 3D: racing, platformer, dungeon, tower defense, survival, city builder and more</em></div></div>
+          <div class="floor" aria-hidden="true"></div>
+        </article>
+        <article class="fcard rv">
+          <h3>Add-ons you snap on</h3>
+          <p>About 99 packs, plus a shared 3D runtime for loading, audio, input, cameras and multiplayer.</p>
+          <div class="demo"><div class="chips">
+            <span class="tag blue">Leaderboards</span><span class="tag">Achievements</span><span class="tag">Daily challenges</span><span class="tag blue">Weather</span><span class="tag">Day &amp; night</span><span class="tag">Extra waves</span><span class="tag blue">Ghost laps</span><span class="tag">Perf overlay</span>
+          </div></div>
+          <div class="floor" aria-hidden="true"></div>
+        </article>
+        <article class="fcard rv">
+          <h3>Every asset licensed, every build audited</h3>
+          <p>CC0 art packs, music, sound and fonts. Each file carries a licence record.</p>
           <div class="demo">
             <div class="glass">
-              <div class="gh">▤ <b>api/search.go</b></div>
+              <div class="gh">⚖ <b>licence audit</b> build #418</div>
               <div class="diff">
-                <div><span class="n">41</span>func Search(q string) {</div>
-                <div class="del"><span>−</span>db.Query("…name='" + q + "'")</div>
-                <div class="add"><span>+</span>db.Query("…name = $1", q)</div>
-                <div><span class="n">44</span>return rows</div>
+                <div class="add"><span>✓</span>sprites · Kenney CC0</div>
+                <div class="add"><span>✓</span>music loops · CC0</div>
+                <div class="add"><span>✓</span>fonts · OFL</div>
               </div>
-              <div class="gf"><span style="color:var(--green)">✓</span> Approved after fix</div>
+              <div class="gf"><span style="color:var(--green)">✓</span> Safe to sell</div>
             </div>
           </div>
           <div class="floor" aria-hidden="true"></div>
         </article>
         <article class="fcard rv">
-          <h3>Permissions that expire with the job</h3>
-          <p>Warrant gives every agent a short-lived token scoped to one task.</p>
+          <h3>Sell what you make</h3>
+          <p>Built-in licensing: a payment becomes a PIN, the PIN becomes a signed licence tied to the machine.</p>
           <div class="demo">
             <div class="tokens">
-              <div class="tok"><span class="orb">fs.read</span><span class="tag"><i class="d"></i>Allowed</span></div>
-              <div class="tok"><span class="orb">ttl 5m</span><span class="tag blue">Issued</span></div>
-              <div class="tok"><span class="orb deny">/etc</span><span class="tag bad"><i class="d"></i>Denied</span></div>
-            </div>
-          </div>
-          <div class="floor" aria-hidden="true"></div>
-        </article>
-        <article class="fcard rv">
-          <h3>Long jobs that pause and never repeat</h3>
-          <p>Harbour waits for your approval and survives crashes without doing a side effect twice.</p>
-          <div class="demo">
-            <div class="steps-demo">
-              <div class="st done"><span class="k">✓</span><span>Plan refactor</span><small>committed</small></div>
-              <div class="st done"><span class="k">✓</span><span>Edit 14 files</span><small>committed</small></div>
-              <div class="st wait"><span class="k">3</span><span>Open pull request</span><small>awaiting you</small></div>
-            </div>
-          </div>
-          <div class="floor" aria-hidden="true"></div>
-        </article>
-        <article class="fcard rv">
-          <h3>A record anyone can verify offline</h3>
-          <p>Ledger hash-chains every decision and signs the root, so edits show.</p>
-          <div class="demo">
-            <div class="glass">
-              <div class="gh">⛓ <b>ledger verify</b> --from 1</div>
-              <div class="diff">
-                <div><span class="n">1</span>genesis  sha256:9f2c…</div>
-                <div><span class="n">⋮</span>2,416 links checked</div>
-                <div class="add"><span>✓</span>root signed · ed25519</div>
-                <div class="add"><span>✓</span>RFC 3161 timestamp</div>
-              </div>
-              <div class="gf"><span style="color:var(--green)">✓</span> 8/8 tamper tests caught</div>
+              <div class="tok"><span class="orb">$</span><span class="tag">Payment</span></div>
+              <div class="tok"><span class="orb">PIN</span><span class="tag blue">Activate</span></div>
+              <div class="tok"><span class="orb">RS256</span><span class="tag"><i class="d"></i>Licensed</span></div>
             </div>
           </div>
           <div class="floor" aria-hidden="true"></div>
@@ -450,8 +475,23 @@ footer a:hover{color:var(--text)}
     </div>
   </section>
 
+  <section class="final" style="padding-block:120px" aria-labelledby="pl-h">
+    <span class="eyebrow">Launching 20 October</span>
+    <h2 id="pl-h" class="rv">Be first in line on launch day.</h2>
+    <div class="ctas rv">
+      <a class="btn btn-blue" href="mailto:proluog@gmail.com?subject=Prosper%20launch%20list">Get launch access</a>
+      <a class="btn btn-dark" href="https://prospernwo.netlify.app" target="_blank" rel="noopener">Play games in the browser</a>
+    </div>
+  </section>
+
+  <div class="divide" id="prolu">
+    <span class="eyebrow">Also from us</span>
+    <p class="word" style="font-size:2rem">PROLU</p>
+    <p class="serif">Self-hosted governance for AI agents: verify the code they write, limit what they can touch, and keep a record nobody can quietly edit.</p>
+  </div>
+
   <section class="unified" aria-labelledby="uni-h">
-    <h2 id="uni-h" class="rv">Six tools.<br>One signed record.</h2>
+    <h2 id="uni-h" class="rv">Your agents act.<br>Prolu <em class="it">keeps the receipts.</em></h2>
     <div class="pills rv">
       <span class="pill"><i style="background:var(--blue)"></i>Gate · verify code</span>
       <span class="pill"><i style="background:var(--amber)"></i>Warrant · limit authority</span>
@@ -744,8 +784,8 @@ footer a:hover{color:var(--text)}
 
 <footer>
   <div class="wrap">
-    <a class="word" href="#top">PROLU</a>
-    <span>© 2026 Prolu · Self-hosted governance for AI agents</span>
+    <a class="word" href="#top">PROSPER</a>
+    <span>© 2026 Prosper &amp; Prolu</span>
     <span class="links"><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#refunds">Refunds</a><a href="#enterprise">Contact</a></span>
   </div>
 </footer>

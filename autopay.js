@@ -2,7 +2,9 @@
  * Prolu Grey autopay — runs inside the owner's Google account (script.google.com).
  *
  *  1. Buyers create an order on the website; this web app gives each order a unique
- *     amount (e.g. $20.37) and emails them the bank-transfer instructions.
+ *     amount (e.g. $20.37) and returns the bank-transfer instructions to the page.
+ *     It sends no email at this step, so nobody can use the order form to make this
+ *     account email strangers.
  *  2. Every minute, checkGrey() reads new Grey "money received" emails, keeps only ones
  *     Gmail verified as DKIM-signed by grey.co, matches the amount to a pending order,
  *     then signs a license (same token format as Gate/Proof/…) and emails it.
@@ -14,7 +16,9 @@
 
 var CONFIG = {
   GREY_DOMAIN: 'grey.co',
-  ORDER_TTL_DAYS: 7,
+  ORDER_TTL_DAYS: 3,
+  MAX_PENDING_PER_EMAIL: 2,
+  MAX_ORDERS_PER_HOUR: 20,   // across all buyers; stops one script squatting every cents slot
   NACL_URL: 'https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl-fast.min.js',
   NACL_SHA256: '3ec535c004aeeb225785d8e93fb33bf99f52e399bd7dfc01969b5629baea5131',
   PLANS: {
@@ -55,6 +59,7 @@ function setup() {
 function doGet(e) {
   var p = (e && e.parameter) || {};
   try {
+    if (p.website) return json_({ ok: false, error: 'Could not create the order' }); // honeypot
     if (p.action !== 'order') return json_({ ok: true, service: 'prolu-autopay' });
     return json_(createOrder_(p));
   } catch (err) {
@@ -76,7 +81,10 @@ function createOrder_(p) {
   try {
     var rows = rows_();
     var pendingForEmail = rows.filter(function (r) { return r.status === 'pending' && r.email === email; });
-    if (pendingForEmail.length >= 3) throw new Error('You already have pending orders — pay one or wait for them to expire');
+    if (pendingForEmail.length >= CONFIG.MAX_PENDING_PER_EMAIL) throw new Error('You already have pending orders — pay one or wait for them to expire');
+    var hourAgo = Date.now() - 3600000;
+    var recent = rows.filter(function (r) { return new Date(r.created_at).getTime() > hourAgo; }).length;
+    if (recent >= CONFIG.MAX_ORDERS_PER_HOUR) throw new Error('Checkout is busy right now — try again in an hour or email proluog@gmail.com');
     var base = plan.unit * seats;
     var used = {};
     rows.forEach(function (r) { if (r.status === 'pending') used[Number(r.amount).toFixed(2)] = true; });
@@ -90,13 +98,7 @@ function createOrder_(p) {
     lock.releaseLock();
   }
 
-  var bank = PropertiesService.getScriptProperties().getProperty('BANK_INSTRUCTIONS') || '(bank details coming — reply to this email)';
-  var body = 'Hi ' + name + ',\n\nThanks for ordering ' + plan.label + (plan.perSeat ? ' × ' + seats + ' seats' : '') + '.\n\n' +
-    'Please send EXACTLY $' + amount + ' (USD) by bank transfer to:\n\n' + bank + '\n\n' +
-    'Put ' + id + ' in the memo if your bank allows it.\n' +
-    'The exact cents identify your order: your license key is emailed to you automatically within minutes of the money arriving.\n' +
-    'This order expires in ' + CONFIG.ORDER_TTL_DAYS + ' days.\n\n— Prolu';
-  GmailApp.sendEmail(email, 'Prolu order ' + id + ' — pay $' + amount, body, { name: 'Prolu' });
+  var bank = PropertiesService.getScriptProperties().getProperty('BANK_INSTRUCTIONS') || '(bank details coming — email proluog@gmail.com)';
   return { ok: true, order_id: id, amount: amount, instructions: bank };
 }
 

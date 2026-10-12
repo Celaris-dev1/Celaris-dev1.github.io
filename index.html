@@ -350,6 +350,13 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
   .gallery{grid-template-columns:1fr}
   .bignum b{font-size:4.4rem}
 }
+.playwrap{position:relative;aspect-ratio:16/9;background:#000}
+.playwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.playcover{position:absolute;inset:0;border:0;background:rgba(0,0,0,.55);color:#fff;font:inherit;font-size:1.1rem;cursor:pointer}
+.playcover[hidden]{display:none}
+.gamepick{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.gamepick button{background:var(--bg-2,#111);border:1px solid var(--line);color:inherit;font:inherit;font-size:.85rem;padding:8px 14px;border-radius:999px;cursor:pointer;opacity:.7}
+.gamepick button.on{opacity:1;border-color:var(--blue)}
 </style>
 </head>
 <body>
@@ -385,7 +392,7 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h12v8H2zM2 4l6 5 6-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
         Get Prosper
       </a>
-      <a class="btn btn-dark" href="#games">See games it built</a>
+      <a class="btn btn-dark" href="#play">Play a game it built</a>
     </div>
     <span class="fine">44 of 45 templates pass the play gate <b>·</b> Phaser for 2D, three.js for 3D <b>·</b> Runs on your own server</span>
 
@@ -426,6 +433,22 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
         <span class="eyebrow">Built by Prosper</span>
         <h2 id="games-h">Games that passed the play test</h2>
         <p>Finished builds exactly as the pipeline produced them, captured mid-play.</p>
+      </div>
+      <div class="stage rv" id="play" style="margin:0 auto 28px;max-width:960px">
+        <div class="win">
+          <div class="win-top">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="win-title">Play a Prosper build</span>
+          </div>
+          <div class="playwrap"><iframe id="game" title="Void Runner, a game built by Prosper" src="about:blank" data-base="https://prospernwo.netlify.app/games/" loading="lazy" allow="autoplay; fullscreen; gamepad"></iframe>
+            <button type="button" class="playcover" id="playcover">▶ Play Void Runner</button></div>
+        </div>
+        <div class="gamepick" role="group" aria-label="Choose a game">
+          <button type="button" class="on" data-game="void_runner">Void Runner</button>
+          <button type="button" data-game="crystal_caverns">Crystal Caverns</button>
+          <button type="button" data-game="slime_hopper_4">Slime Hopper 4</button>
+        </div>
+        <p class="note" style="text-align:center;margin-top:12px">Click the game once so it gets your keyboard. Best on a computer. <a id="opengame" href="https://prospernwo.netlify.app/games/void_runner/" target="_blank" rel="noopener">Open in a new tab</a></p>
       </div>
       <div class="gallery">
         <figure class="gshot rv"><img src="img/void-runner.jpg" width="960" height="540" loading="lazy" alt="Void Runner: a vertical space shooter with enemy ships."><figcaption><b>Void Runner</b><span>Space shooter</span></figcaption></figure>
@@ -577,6 +600,19 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
 fetch("https://prosper.qzz.io/launch/info").then(function(r){return r.json()}).then(function(j){
  if(!(j.cap>0))return;var t=j.left>0?j.left+" of "+j.cap+" launch spots left":"launch spots are full";
  ["spots","spots2"].forEach(function(i){var e=document.getElementById(i);if(e)e.textContent=t})}).catch(function(){});
+</script>
+<script>
+(function(){
+  var f=document.getElementById('game'),cov=document.getElementById('playcover'),open=document.getElementById('opengame'),base=f.getAttribute('data-base'),cur='void_runner';
+  function name(b){return b.textContent}
+  function start(){f.src=base+cur+'/';cov.hidden=true;f.focus()}
+  cov.addEventListener('click',start);
+  document.querySelectorAll('[data-game]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-game]').forEach(function(x){x.classList.toggle('on',x===b)});
+    cur=b.getAttribute('data-game');open.href=base+cur+'/';f.title=name(b)+', a game built by Prosper';
+    if(cov.hidden){start()}else{cov.textContent='\u25B6 Play '+name(b)}
+  })});
+})();
 </script>
 </body>
 </html>

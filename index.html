@@ -3,13 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Prosper: a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a playable, verified build. From the makers of Prolu.">
+<title>Prosper: AI game builder that ships playable 2D &amp; 3D web games</title>
+<meta name="description" content="Prosper is a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a build that a headless browser has already played. Beta now open: $25/month, first 100 members get 2 months free.">
+<link rel="canonical" href="https://prolu.indevs.in/">
 <meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prosper &amp; Prolu">
+<meta property="og:title" content="Prosper: AI game builder that ships playable 2D &amp; 3D web games">
+<meta property="og:description" content="Prosper is a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a build that a headless browser has already played. Launching 20 October.">
+<meta property="og:url" content="https://prolu.indevs.in/">
+<meta property="og:image" content="https://prolu.indevs.in/img/conductor.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Prospernwo">
+<meta name="twitter:title" content="Prosper: AI game builder that ships playable 2D &amp; 3D web games">
+<meta name="twitter:description" content="Prosper is a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a build that a headless browser has already played. Launching 20 October.">
+<meta name="twitter:image" content="https://prolu.indevs.in/img/conductor.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23000%27/%3E%3Cpath d=%27M11 25V7h6.5a6 6 0 0 1 0 12H11%27 stroke=%27%237C93FF%27 stroke-width=%273.4%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
-<title>Prosper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Prosper","applicationCategory":"DeveloperApplication","applicationSubCategory":"AI game builder","operatingSystem":"macOS, Windows, Linux","description":"Self-hosted AI game builder for 2D (Phaser) and 3D (three.js) web games. Every build is play-tested in a headless browser and repaired until it passes.","url":"https://prolu.indevs.in/","image":"https://prolu.indevs.in/img/conductor.jpg","offers":{"@type":"Offer","price":"25","priceCurrency":"USD","url":"https://prosper.qzz.io/buy","description":"Per month, or $250 per year"},"sameAs":["https://github.com/Celaris-dev1","https://x.com/Prospernwo"]}
+</script>
 <style>
 :root{
   color-scheme:dark;
@@ -320,7 +335,7 @@ footer a:hover{color:var(--text)}
 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:420px}
 .chips .tag{font-size:.8rem;padding:9px 13px}
 .final .eyebrow{margin-bottom:22px}
-.divide{text-align:center;padding:120px 24px 0;border-top:1px solid var(--line);display:grid;justify-items:center;gap:14px}
+.divide{text-align:center;padding:120px 24px 100px;border-top:1px solid var(--line);display:grid;justify-items:center;gap:14px}
 .divide .serif{font-size:1.2rem;color:var(--text-2);max-width:46ch}
 .divide .eyebrow{margin:0}
 em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.025em;color:#C9D1FF}
@@ -338,7 +353,6 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
 </style>
 </head>
 <body>
-
 <header class="top" id="top-bar">
   <div class="bar">
     <div class="l">
@@ -349,32 +363,31 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
       </a>
     </div>
     <nav class="r" aria-label="Main">
+      <a class="navlink hide-m" href="#how">How it works</a>
       <a class="navlink hide-m" href="#games">Games</a>
-      <a class="navlink hide-m" href="#prolu">Prolu</a>
-      <a class="navlink hide-m" href="#pricing">Pricing</a>
-      <a class="navlink" href="#enterprise">Enterprise</a>
-      <a class="btn btn-dark btn-sm" href="mailto:proluog@gmail.com?subject=Prosper%20launch%20list">
+      <a class="navlink hide-m" href="#prosper-pricing">Pricing</a>
+      <a class="navlink" href="/prolu/">Prolu</a>
+      <a class="btn btn-dark btn-sm" href="https://prosper.qzz.io/buy">
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Get access
+        Buy Prosper
       </a>
     </nav>
   </div>
 </header>
-
 <main id="top">
   <section class="hero">
     <canvas id="stars" aria-hidden="true"></canvas>
-    <span class="badge">Prosper <i></i> Self-hosted <i></i> Launching 20 Oct</span>
+    <span class="badge">Prosper <i></i> Self-hosted <i></i> Beta now open</span>
     <h1>Describe a game. <em>Prosper builds it.</em></h1>
     <p class="sub">A self-hosted AI game builder for 2D and 3D web games. It splits your idea into parts, has models write each one, checks every part, plays the result in a headless browser and repairs what fails.</p>
     <div class="ctas">
-      <a class="btn btn-blue" href="mailto:proluog@gmail.com?subject=Prosper%20launch%20list">
+      <a class="btn btn-blue" href="https://prosper.qzz.io/buy">
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h12v8H2zM2 4l6 5 6-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        Get launch access
+        Get Prosper
       </a>
       <a class="btn btn-dark" href="#games">See games it built</a>
     </div>
-    <span class="fine">Phaser for 2D <b>·</b> three.js for 3D <b>·</b> Runs on your own server</span>
+    <span class="fine">44 of 45 templates pass the play gate <b>·</b> Phaser for 2D, three.js for 3D <b>·</b> Runs on your own server</span>
 
     <div class="stage rv">
       <div class="win">
@@ -393,7 +406,7 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
       <div class="head">
         <span class="eyebrow">How a build works</span>
         <h2 id="how-h">From brief to playable game</h2>
-        <p>Every step is checked. A game only counts when a headless browser can <em>actually play it</em>.</p>
+        <p>Chat-to-code tools hand you code and hope. Prosper doesn't hand you anything until a headless browser can <em>actually play it</em>.</p>
       </div>
       <ol class="pipe rv">
         <li><b>Spec</b><span>Title, genre, platform and description.</span></li>
@@ -422,7 +435,7 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
         <figure class="gshot rv"><img src="img/boat-top-down-racer.jpg" width="480" height="270" loading="lazy" alt="A top-down racer with laps, position and a timer."><figcaption><b>Top-Down Racer</b><span>Beta · prompt-to-game</span></figcaption></figure>
         <figure class="gshot rv"><img src="img/pirate-tactics-grid.jpg" width="480" height="270" loading="lazy" alt="A turn-based tactics grid with a hand of cards."><figcaption><b>Tactics Grid</b><span>Beta · prompt-to-game</span></figcaption></figure>
       </div>
-      <p class="note" style="margin-inline:auto;text-align:center">Prompt-to-game is in beta: games boot and play, but don't always match the brief yet. Templates are gate-tested by hand.</p>
+      <p class="note" style="margin-inline:auto;text-align:center">Templates are gate-tested by hand. Prompt-to-game is experimental: every game boots and plays, and matching your brief improves with each release.</p>
     </div>
   </section>
 
@@ -461,7 +474,7 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
         </article>
         <article class="fcard rv">
           <h3>Sell what you make</h3>
-          <p>Built-in licensing: a payment becomes a PIN, the PIN becomes a signed licence tied to the machine.</p>
+          <p>Charge for your game with built-in license keys. No store, no cut: a payment becomes a PIN, the PIN unlocks a signed licence.</p>
           <div class="demo">
             <div class="tokens">
               <div class="tok"><span class="orb">$</span><span class="tag">Payment</span></div>
@@ -475,384 +488,55 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
     </div>
   </section>
 
-  <section class="final" style="padding-block:120px" aria-labelledby="pl-h">
-    <span class="eyebrow">Launching 20 October</span>
-    <h2 id="pl-h" class="rv">Be first in line on launch day.</h2>
-    <div class="ctas rv">
-      <a class="btn btn-blue" href="mailto:proluog@gmail.com?subject=Prosper%20launch%20list">Get launch access</a>
-      <a class="btn btn-dark" href="https://prospernwo.netlify.app" target="_blank" rel="noopener">Play games in the browser</a>
+  <section class="sp" id="prosper-pricing" aria-labelledby="pp-h" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Prosper pricing · USD</span>
+        <h2 id="pp-h">One plan. Your own server, your own AI key.</h2>
+        <p>Pay monthly or pay a year and get two months free. Your PIN is emailed as soon as the payment arrives.</p>
+      </div>
+      <div class="plans" style="grid-template-columns:minmax(0,420px);justify-content:center">
+        <div class="plan hl rv">
+          <div class="pn">Prosper <span id="spots2">Launch offer</span></div>
+          <div class="price">$25<small> / month · $250 / year</small></div>
+          <p>Everything Prosper makes: 2D and 3D games from a prompt, on Mac, Windows and Linux.</p>
+          <ul>
+            <li>First 100 members get 2 months free</li>
+            <li>Join the Discord and get an extra week</li>
+            <li>44 templates and about 99 add-ons built in</li>
+            <li>Pay by card (naira) or US bank transfer</li>
+          </ul>
+          <a class="btn btn-blue" href="https://prosper.qzz.io/buy">Buy Prosper</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <div class="divide" id="prolu">
+  <section class="final" style="padding-block:120px" aria-labelledby="pl-h">
+    <span class="eyebrow">Beta now open · <span id="spots">first 100 members get 2 months free</span></span>
+    <h2 id="pl-h" class="rv">Be one of the first 100 members.</h2>
+    <div class="ctas rv">
+      <a class="btn btn-blue" href="https://prosper.qzz.io/buy">Get Prosper</a>
+      <a class="btn btn-dark" href="https://prospernwo.netlify.app" target="_blank" rel="noopener">Read the build log</a>
+    </div>
+  </section>
+
+  <div class="divide">
     <span class="eyebrow">Also from us</span>
     <p class="word" style="font-size:2rem">PROLU</p>
     <p class="serif">Self-hosted governance for AI agents: verify the code they write, limit what they can touch, and keep a record nobody can quietly edit.</p>
+    <div class="ctas"><a class="btn btn-dark" href="/prolu/">Explore Prolu</a></div>
   </div>
-
-  <section class="unified" aria-labelledby="uni-h">
-    <h2 id="uni-h" class="rv">Your agents act.<br>Prolu <em class="it">keeps the receipts.</em></h2>
-    <div class="pills rv">
-      <span class="pill"><i style="background:var(--blue)"></i>Gate · verify code</span>
-      <span class="pill"><i style="background:var(--amber)"></i>Warrant · limit authority</span>
-      <span class="pill"><i style="background:var(--teal)"></i>Ledger · record decisions</span>
-      <span class="pill"><i style="background:var(--violet)"></i>Harbour · run agents</span>
-      <span class="pill"><i style="background:var(--green)"></i>Proof · data rights</span>
-      <span class="pill"><i style="background:var(--orange)"></i>Bench · evaluate agents</span>
-    </div>
-    <div class="stats wrap rv">
-      <div class="stat"><div class="v">0/27</div><p class="l">false alarms on clean changes</p><p class="s">Gate benchmark</p></div>
-      <div class="stat"><div class="v">8/8</div><p class="l">kinds of tampering caught offline</p><p class="s">Ledger test matrix</p></div>
-      <div class="stat"><div class="v">20</div><p class="l">agent framework adapters</p><p class="s">Warrant · Go &amp; Python</p></div>
-      <div class="stat"><div class="v">0</div><p class="l">steps repeated after a crash</p><p class="s">Harbour two-phase commit</p></div>
-    </div>
-  </section>
-
-  <section class="sp" id="products" aria-labelledby="prod-h" style="padding-top:40px">
-    <div class="narrow">
-      <div class="head" style="text-align:left;margin:0 0 48px">
-        <span class="eyebrow">The stack</span>
-        <h2 id="prod-h">Use one, or all of them.</h2>
-        <p>Each installs with a single script and works on its own. Together they share <em>one signed record</em>.</p>
-      </div>
-      <div class="ledger-list">
-        <article class="prod rv">
-          <div class="meta"><b>VERIFY CODE</b>Go · CLI<br>MCP tool · GitHub App</div>
-          <div class="body">
-            <h3><i style="background:var(--blue)"></i>Gate</h3>
-            <p>Reviews AI-written changes and decides approve, review or reject, with reasons a person can read and <em>a suggested fix</em>.</p>
-            <div class="links"><a href="/download/#gate">download</a><span>pre-commit hook</span></div>
-          </div>
-        </article>
-        <article class="prod rv">
-          <div class="meta"><b>LIMIT AUTHORITY</b>MCP + A2A gateway<br>20 adapters</div>
-          <div class="body">
-            <h3><i style="background:var(--amber)"></i>Warrant</h3>
-            <p>Gives each agent a short-lived permission that covers only the job at hand. <em>A stolen token is useless</em> without its key.</p>
-            <div class="links"><a href="https://github.com/Celaris-dev1/Warrant" target="_blank" rel="noopener">github.com/Celaris-dev1/Warrant</a><span>open source</span></div>
-          </div>
-        </article>
-        <article class="prod rv">
-          <div class="meta"><b>RECORD DECISIONS</b>Postgres · Ed25519<br>EU AI Act evidence</div>
-          <div class="body">
-            <h3><i style="background:var(--teal)"></i>Ledger</h3>
-            <p>An append-only, hash-chained log that <em>anyone can verify offline</em>.</p>
-            <div class="links"><a href="https://github.com/Celaris-dev1/Ledger" target="_blank" rel="noopener">github.com/Celaris-dev1/Ledger</a><span>open source</span></div>
-          </div>
-        </article>
-        <article class="prod rv">
-          <div class="meta"><b>RUN AGENTS</b>crash-safe<br>approval gates</div>
-          <div class="body">
-            <h3><i style="background:var(--violet)"></i>Harbour</h3>
-            <p>Long agent jobs that pause for approval and survive crashes <em>without repeating side effects</em>.</p>
-            <div class="links"><a href="https://github.com/Celaris-dev1/Harbour-" target="_blank" rel="noopener">github.com/Celaris-dev1/Harbour-</a><span>open source</span></div>
-          </div>
-        </article>
-        <article class="prod rv">
-          <div class="meta"><b>PROVE DATA RIGHTS</b>Node.js 22+<br>HF dataset cards</div>
-          <div class="body">
-            <h3><i style="background:var(--green)"></i>Proof</h3>
-            <p>Signed evidence of what your crawler fetched and <em>whether it was allowed to</em>.</p>
-            <div class="links"><a href="/download/#proof">download</a></div>
-          </div>
-        </article>
-        <article class="prod rv">
-          <div class="meta"><b>EVALUATE AGENTS</b>pass@k<br>free forever</div>
-          <div class="body">
-            <h3><i style="background:var(--orange)"></i>Bench</h3>
-            <p>Turns your own repository's bug fixes into a private eval, then scores Claude Code, Codex, Cursor and Aider on it, with <em>confidence intervals instead of a single lucky number</em>.</p>
-            <div class="links"><a href="https://github.com/Celaris-dev1/Bench" target="_blank" rel="noopener">github.com/Celaris-dev1/Bench</a><span>open source</span></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="sp" id="pricing" aria-labelledby="price-h">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Pricing · USD</span>
-        <h2 id="price-h">Free to start. Pay when your team relies on it.</h2>
-        <p>You run everything yourself. A license key unlocks paid features, offline.</p>
-      </div>
-      <div class="plans">
-        <div class="plan rv">
-          <div class="pn">Community</div>
-          <div class="price">$0</div>
-          <p>For individuals, open-source projects and evaluation.</p>
-          <ul>
-            <li>All six products, core features</li>
-            <li>Gate on public repos</li>
-            <li>Proof capture and verify at any volume</li>
-            <li>Community support on GitHub</li>
-          </ul>
-          <a class="btn btn-dark" href="/download/">Download</a>
-        </div>
-        <div class="plan hl rv">
-          <div class="pn">Team <span>Most popular</span></div>
-          <div class="price">$200<small> / dev / year</small></div>
-          <p>Gate for teams shipping AI-written code every day.</p>
-          <ul>
-            <li>Private repos and org-wide policy</li>
-            <li>Single sign-on for the Gate dashboard</li>
-            <li>Email support</li>
-            <li>Or $20 / developer / month</li>
-            <li>Proof Starter $990 / year, Pro $2,990 / year</li>
-          </ul>
-          <a class="btn btn-blue" href="#buy" data-buy="gate-team">Buy Gate Team</a>
-        </div>
-        <div class="plan rv">
-          <div class="pn">Enterprise</div>
-          <div class="price">Custom</div>
-          <p>The whole governed-agent stack under one contract.</p>
-          <ul>
-            <li>Compliance evidence exports</li>
-            <li>KMS signing and locked S3 archive</li>
-            <li>Scale-out workers and multi-tenant</li>
-            <li>Priority support and invoicing</li>
-          </ul>
-          <a class="btn btn-dark" href="#enterprise">Talk to us</a>
-        </div>
-      </div>
-
-      <div class="tbl rv">
-        <table>
-          <thead><tr><th scope="col">Product</th><th scope="col">Community</th><th scope="col">Paid</th><th scope="col">Enterprise</th></tr></thead>
-          <tbody>
-            <tr><td>Gate</td><td><span class="amt">$0</span><span class="s">Public repos, solo developers</span></td><td><span class="amt">$200</span> / dev / year<span class="s">Team · or $20 / dev / month</span></td><td>Custom<span class="s">Audit export</span></td></tr>
-            <tr><td>Proof</td><td><span class="amt">$0</span><span class="s">Capture, verify, report</span></td><td><span class="amt">$990</span> / year<span class="s">Starter: certificates, PDF · $99 / month</span><span class="amt">$2,990</span> / year<span class="s">Pro: adds re-checks, 1-year retention · $299 / month</span></td><td>From <span class="amt">$15,000</span> / year<span class="s">Multi-org portal, legal holds</span></td></tr>
-            <tr><td>Ledger</td><td><span class="amt">$0</span><span class="s">Full log and verification</span></td><td>—</td><td>Custom<span class="s">Compliance exports, KMS, S3 archive</span></td></tr>
-            <tr><td>Warrant</td><td><span class="amt">$0</span><span class="s">Tokens, gateway, adapters</span></td><td>—</td><td>Custom<span class="s">Gateway tool filtering</span></td></tr>
-            <tr><td>Harbour</td><td><span class="amt">$0</span><span class="s">Up to 2 workers per server</span></td><td>—</td><td>Custom<span class="s">Scale-out workers</span></td></tr>
-            <tr><td>Bench</td><td><span class="amt">$0</span><span class="s">Everything</span></td><td>—</td><td>—</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="buy" id="buy">
-        <div class="buy-h">
-          <h3>Buy a license</h3>
-          <div class="seg" role="radiogroup" aria-label="Billing period">
-            <label><input type="radio" name="period" value="yearly" checked><span>Yearly <em>2 months free</em></span></label>
-            <label><input type="radio" name="period" value="monthly"><span>Monthly</span></label>
-          </div>
-        </div>
-        <div class="buy-item">
-          <div><b>Gate Team</b><span data-y="$200 per developer / year" data-m="$20 per developer / month">$200 per developer / year</span></div>
-          <label for="gate-seats">Developers <input id="gate-seats" type="number" min="1" max="500" value="5" inputmode="numeric"></label>
-          <button class="btn btn-blue" type="button" data-buy="gate-team">Buy</button>
-        </div>
-        <div class="buy-item">
-          <div><b>Proof Starter</b><span data-y="$990 / year · certificates, PDF" data-m="$99 / month · certificates, PDF">$990 / year · certificates, PDF</span></div>
-          <span></span>
-          <button class="btn btn-blue" type="button" data-buy="proof-starter">Buy</button>
-        </div>
-        <div class="buy-item">
-          <div><b>Proof Pro</b><span data-y="$2,990 / year · adds re-checks, 1-year retention" data-m="$299 / month · adds re-checks, 1-year retention">$2,990 / year · adds re-checks, 1-year retention</span></div>
-          <span></span>
-          <button class="btn btn-blue" type="button" data-buy="proof-pro">Buy</button>
-        </div>
-        <div class="two" id="buyer">
-          <label class="f" for="b-name">Name or company<input id="b-name" autocomplete="organization"></label>
-          <label class="f" for="b-email">Email for your license<input id="b-email" type="email" autocomplete="email"></label>
-        </div>
-        <label class="hp" aria-hidden="true">Website<input id="b-site" tabindex="-1" autocomplete="off"></label>
-        <p class="buy-msg" id="buy-msg" role="status" hidden></p>
-      </div>
-      <p class="note">Pay by US bank transfer (ACH). You get an exact amount to send, and your license key is emailed automatically within minutes of the money arriving. For invoiced or Enterprise purchases, use the form below.</p>
-    </div>
-  </section>
-
-  <section class="sp" id="enterprise" aria-labelledby="ent-h" style="padding-top:40px">
-    <div class="wrap ent">
-      <div class="rv">
-        <span class="eyebrow">Invoiced purchases</span>
-        <h2 id="ent-h">Pay by invoice and bank transfer.</h2>
-        <p class="lede">Most companies buy this way. It takes <em>three steps</em>.</p>
-        <ol class="steps">
-          <li><span><b>Tell us what you need</b>Products, seats and billing details.</span></li>
-          <li><span><b>Get a quote, then an invoice</b>Pay by ACH, wire or FedNow.</span></li>
-          <li><span><b>Receive your license key</b>It works offline for the whole term.</span></li>
-        </ol>
-        <div class="contact">Email <code id="email">proluog@gmail.com</code><button class="btn btn-dark btn-sm" type="button" id="copy">Copy</button></div>
-      </div>
-      <form id="quote" class="rv" novalidate>
-        <div class="two">
-          <label class="f" for="q-name">Your name<input id="q-name" name="name" autocomplete="name" required></label>
-          <label class="f" for="q-company">Company<input id="q-company" name="company" autocomplete="organization" required></label>
-        </div>
-        <label class="f" for="q-product">What you need
-          <select id="q-product" name="product">
-            <option>Everything (Enterprise stack)</option>
-            <option>Gate Team</option>
-            <option>Proof Pro</option>
-            <option>Proof Enterprise</option>
-            <option>Ledger Enterprise</option>
-            <option>Warrant Enterprise</option>
-            <option>Harbour Enterprise</option>
-          </select>
-        </label>
-        <label class="f" for="q-seats">Developers or seats<input id="q-seats" name="seats" inputmode="numeric" placeholder="25"></label>
-        <label class="f" for="q-notes">Anything else<textarea id="q-notes" name="notes" placeholder="Deployment, compliance needs, timeline"></textarea></label>
-        <button class="btn btn-blue" type="submit">Prepare my request</button>
-        <div class="out" id="out" hidden></div>
-      </form>
-    </div>
-  </section>
-
-  <section class="sp" id="legal" aria-labelledby="legal-h" style="padding-top:40px">
-    <div class="narrow">
-      <div class="head">
-        <span class="eyebrow">Effective 25 September 2026</span>
-        <h2 id="legal-h">Questions &amp; terms</h2>
-      </div>
-      <div class="faq">
-        <details>
-          <summary>Does Prolu send any of my data anywhere?</summary>
-          <div class="lb"><p>No. Everything runs on your own servers and license checks happen entirely offline. Prolu never sends us your code, logs, agent data, crawl data or usage statistics.</p></div>
-        </details>
-        <details>
-          <summary>Which products are open source?</summary>
-          <div class="lb"><p>Warrant, Ledger, Harbour and Bench are on GitHub. Gate and Proof ship under the Prolu Commercial License: the Community edition is free, and paid features need a license key.</p></div>
-        </details>
-        <details id="terms">
-          <summary>Terms of Service</summary>
-          <div class="lb">
-            <p>These terms cover your use of Prolu software (Gate, Proof, Ledger, Warrant, Harbour and Bench) and any paid license. By downloading the software or buying a license you agree to them.</p>
-            <h4>Open-source use</h4>
-            <p>Each open-source product's code is available under the license in its repository (Apache License 2.0 unless the repository says otherwise). Those licenses govern the code; these terms only add rules for paid licenses and support.</p>
-            <h4>Paid licenses</h4>
-            <ul>
-              <li>A license key unlocks the paid features for the edition, seat count and term on your order or invoice.</li>
-              <li>Install licensed software on infrastructure you control, for your organisation's internal use. Don't resell, share or publish license keys.</li>
-              <li>Seat counts are checked locally. Going over shows a warning, and we ask you to true up at renewal.</li>
-              <li>When a license expires, paid features keep working for 14 days, then switch off. Your data is never deleted or locked.</li>
-            </ul>
-            <h4>Payment</h4>
-            <p>Self-serve plans are paid by US bank transfer (ACH) for the exact amount shown on your order; your license is issued once the payment arrives. Unpaid orders expire after 3 days. Invoices are due within 30 days by bank transfer unless your quote says otherwise.</p>
-            <h4>Support</h4>
-            <p>Community users get help through the public issue trackers. Paid plans include email support. Enterprise response times are set in your order.</p>
-            <h4>Warranty and liability</h4>
-            <p>The software is provided as is. Version 0.1.0 is an early preview; evaluate it before using it in production. To the extent the law allows, our total liability for any claim is limited to what you paid us in the 12 months before the claim.</p>
-            <h4>Changes</h4>
-            <p>We may update these terms. Material changes will be posted here with a new effective date and won't apply to a license term you've already paid for.</p>
-          </div>
-        </details>
-        <details id="privacy">
-          <summary>Privacy Policy</summary>
-          <div class="lb">
-            <p>Prolu software runs on your own servers. It doesn't send us your code, logs, agent data, crawl data or usage statistics. License checks happen entirely offline.</p>
-            <h4>What we collect</h4>
-            <ul>
-              <li>When you contact us or buy: your name, email, company, and the billing details we need to issue a license or invoice.</li>
-              <li>When you pay: the amount and date of your bank transfer, so we can match it to your order. We never see your bank login.</li>
-            </ul>
-            <h4>How we use it</h4>
-            <p>Only to reply to you, issue and renew licenses, provide support, and meet tax and accounting rules. We don't sell personal data or use it for advertising.</p>
-            <h4>Retention and your rights</h4>
-            <p>We keep order records as long as tax law requires, and other contact data until you ask us to delete it. Ask for a copy, a correction or deletion at proluog@gmail.com.</p>
-          </div>
-        </details>
-        <details id="refunds">
-          <summary>Refund Policy</summary>
-          <div class="lb">
-            <p>If a paid plan doesn't work for you, ask for a refund within 14 days of your first payment and we'll refund it in full.</p>
-            <ul>
-              <li>Monthly plans can be cancelled any time and stay active to the end of the paid month.</li>
-              <li>Annual and Enterprise plans are fully refundable within 14 days of the first payment; after that, per your order.</li>
-              <li>Refunds are returned by bank transfer to the account that paid.</li>
-            </ul>
-            <p>To request a refund, email us with your order or invoice number.</p>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section class="final" aria-labelledby="cta-h">
-    <h2 id="cta-h" class="rv">Give your agents limits, and yourself a record.</h2>
-    <div class="ctas rv">
-      <a class="btn btn-blue" href="/download/">
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download free
-      </a>
-      <a class="btn btn-dark" href="#enterprise">Talk to us</a>
-    </div>
-    <p class="fine">Install one product in a few minutes · <a href="https://github.com/Celaris-dev1" target="_blank" rel="noopener">Source on GitHub</a></p>
-  </section>
 </main>
 
 <footer>
   <div class="wrap">
     <a class="word" href="#top">PROSPER</a>
     <span>© 2026 Prosper &amp; Prolu</span>
-    <span class="links"><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#refunds">Refunds</a><a href="#enterprise">Contact</a></span>
+    <span class="links"><a href="/prolu/#terms">Terms</a><a href="/prolu/#privacy">Privacy</a><a href="/prolu/">Prolu</a><a href="mailto:proluog@gmail.com">Contact</a></span>
   </div>
 </footer>
 
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-<script>
-// Paddle checkout. Fill these in from the Paddle dashboard once the account is approved:
-//   Developer tools -> Authentication -> client-side token (starts with live_ or test_)
-//   Catalog -> Products -> each price's ID (starts with pri_)
-// Client-side tokens and price IDs are meant to be public; never put an API key here.
-// Bank-transfer autopay: the Google Apps Script web app URL (ends in /exec).
-var AUTOPAY_URL = 'https://script.google.com/macros/s/AKfycbxsNm32PWkPyENJ9vfqRs9KZTzvHJ_NYJT7MN8vb2Y8umLgftnMu_SGjZuamgZdS5mg/exec';
-var PADDLE = {
-  environment: 'production',   // 'sandbox' while testing with a test_ token
-  clientToken: '',
-  prices: { 'gate-team-yearly': '', 'gate-team-monthly': '', 'proof-starter-yearly': '', 'proof-starter-monthly': '', 'proof-pro-yearly': '', 'proof-pro-monthly': '' }
-};
-(function(){
-  var ready = false;
-  try {
-    if (PADDLE.clientToken && window.Paddle) {
-      if (PADDLE.environment === 'sandbox') Paddle.Environment.set('sandbox');
-      Paddle.Initialize({ token: PADDLE.clientToken });
-      ready = true;
-    }
-  } catch (e) { ready = false; }
-  var msg = document.getElementById('buy-msg'), busy = false;
-  function period(){ var r = document.querySelector('input[name=period]:checked'); return r ? r.value : 'yearly'; }
-  document.querySelectorAll('input[name=period]').forEach(function(r){ r.addEventListener('change', function(){
-    var p = period();
-    document.querySelectorAll('[data-y]').forEach(function(e){ e.textContent = e.getAttribute(p === 'yearly' ? 'data-y' : 'data-m'); });
-  }); });
-  if (!AUTOPAY_URL) document.getElementById('buyer').style.display = 'none';
-  document.querySelectorAll('[data-buy]').forEach(function(el){
-    el.addEventListener('click', function(ev){
-      var base = el.getAttribute('data-buy'), key = base + '-' + period(), price = PADDLE.prices[key];
-      if (el.tagName === 'A') { ev.preventDefault(); document.getElementById('buy').scrollIntoView({behavior:'smooth', block:'center'}); if (base === 'gate-team') return; }
-      if ((!ready || !price) && AUTOPAY_URL) { autopay(key); return; }
-      if (!ready || !price) {
-        msg.hidden = false;
-        msg.textContent = 'Checkout is not available right now. Request a license with the form below and we will invoice you.';
-        return;
-      }
-      var qty = 1;
-      if (base === 'gate-team') { qty = Math.max(1, Math.min(500, parseInt(document.getElementById('gate-seats').value, 10) || 1)); }
-      Paddle.Checkout.open({ items: [{ priceId: price, quantity: qty }] });
-    });
-  });
-  function autopay(key){
-    if (busy) return;
-    var name = document.getElementById('b-name').value.trim(), email = document.getElementById('b-email').value.trim();
-    msg.hidden = false;
-    if (document.getElementById('b-site').value) { msg.textContent = 'Could not create the order.'; return; }
-    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Enter your name and email above first.'; document.getElementById('b-name').focus(); return; }
-    var seats = Math.max(1, Math.min(500, parseInt(document.getElementById('gate-seats').value, 10) || 1));
-    busy = true;
-    msg.textContent = 'Creating your order…';
-    var q = new URLSearchParams({ action: 'order', plan: key, seats: String(seats), name: name, email: email });
-    fetch(AUTOPAY_URL + '?' + q.toString()).then(function(r){ return r.json(); }).then(function(d){
-      if (!d.ok) { msg.textContent = d.error || 'Something went wrong. Email proluog@gmail.com.'; return; }
-      msg.textContent = 'Order ' + d.order_id + ': send exactly $' + d.amount + ' USD by bank transfer to:\n\n' + String(d.instructions).replace(/\s+(?=(Bank|Account number|Account type|ACH routing number|Routing number|Transfer type|SWIFT|Bank address)\s*:)/g, '\n') +
-        '\n\nPut ' + d.order_id + ' in the memo if your bank allows it. The exact cents identify your order, so save these details now. Your license key is emailed to ' + email + ' automatically once the money arrives. This order expires in 3 days.';
-    }).catch(function(){ msg.textContent = 'Could not reach checkout. Email proluog@gmail.com and we will invoice you.'; })
-      .then(function(){ busy = false; });
-  }
-})();
-</script>
 <script>
 (function(){
   // starfield
@@ -887,28 +571,12 @@ var PADDLE = {
     var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
     els.forEach(function(e){ io.observe(e); });
   } else { els.forEach(function(e){ e.classList.add('in'); }); }
-
-  // copy email
-  var email = document.getElementById('email').textContent;
-  document.getElementById('copy').addEventListener('click', function(){
-    var b = this;
-    function sel(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('email')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected'; }
-    try { navigator.clipboard.writeText(email).then(function(){ b.textContent='Copied'; }, sel); } catch(e){ sel(); }
-  });
-
-  // quote form
-  var f = document.getElementById('quote'), out = document.getElementById('out');
-  f.addEventListener('submit', function(e){
-    e.preventDefault();
-    var el = f.elements, name = el.name.value.trim(), co = el.company.value.trim();
-    out.hidden = false;
-    if (!name || !co) { out.textContent = 'Add your name and company, then try again.'; return; }
-    var body = 'Name: '+name+'\nCompany: '+co+'\nProduct: '+el.product.value+
-      '\nSeats: '+(el.seats.value.trim()||'not given')+'\nNotes: '+(el.notes.value.trim()||'none');
-    out.textContent = 'Quote request\n'+body+'\n\nOpening your email app. If it doesn\'t open, copy this and send it to '+email+'. We reply within one business day.';
-    location.href = 'mailto:'+email+'?subject='+encodeURIComponent('Quote request: '+co)+'&body='+encodeURIComponent(body);
-  });
 })();
+</script>
+<script>
+fetch("https://prosper.qzz.io/launch/info").then(function(r){return r.json()}).then(function(j){
+ if(!(j.cap>0))return;var t=j.left>0?j.left+" of "+j.cap+" launch spots left":"launch spots are full";
+ ["spots","spots2"].forEach(function(i){var e=document.getElementById(i);if(e)e.textContent=t})}).catch(function(){});
 </script>
 </body>
 </html>

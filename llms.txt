@@ -3,7 +3,8 @@
 > Two self-hosted developer products from the same team.
 
 ## Prosper
-Self-hosted AI game builder for 2D (Phaser) and 3D (three.js) web games. A brief is split into units, models write each unit, every unit is verified, and the merged game is played in a headless browser and repaired until it reaches play. 44 of 45 hand-built templates pass the play gate. Launching 20 October 2026.
+Self-hosted AI game builder for 2D (Phaser) and 3D (three.js) web games. A brief is split into units, models write each unit, every unit is verified, and the merged game is played in a headless browser and repaired until it reaches play. 44 of 45 hand-built templates pass the play gate. Beta open now: $25/month or $250/year, runs on macOS, Windows and Linux with your own AI key.
+- [Buy Prosper](https://prosper.qzz.io/buy)
 - [Prosper](https://prolu.indevs.in/)
 - [Build log](https://prospernwo.netlify.app)
 

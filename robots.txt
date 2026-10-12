@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prolu.indevs.in/sitemap.xml

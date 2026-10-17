@@ -374,9 +374,9 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
       <a class="navlink hide-m" href="#games">Games</a>
       <a class="navlink hide-m" href="#prosper-pricing">Pricing</a>
       <a class="navlink" href="/prolu/">Prolu</a>
-      <a class="btn btn-dark btn-sm" href="https://prosper.qzz.io/buy">
+      <a class="btn btn-dark btn-sm" href="/download/#prosper">
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Buy Prosper
+        Download Prosper
       </a>
     </nav>
   </div>
@@ -388,9 +388,9 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
     <h1>Describe a game. <em>Prosper builds it.</em></h1>
     <p class="sub">A self-hosted AI game builder for 2D and 3D web games. It splits your idea into parts, has models write each one, checks every part, plays the result in a headless browser and repairs what fails.</p>
     <div class="ctas">
-      <a class="btn btn-blue" href="https://prosper.qzz.io/buy">
+      <a class="btn btn-blue" href="/download/#prosper">
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h12v8H2zM2 4l6 5 6-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        Get Prosper
+        Download Prosper
       </a>
       <a class="btn btn-dark" href="#play">Play a game it built</a>
     </div>
@@ -431,34 +431,20 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
     <div class="wrap">
       <div class="head">
         <span class="eyebrow">Built by Prosper</span>
-        <h2 id="games-h">Games that passed the play test</h2>
-        <p>Finished builds exactly as the pipeline produced them, captured mid-play.</p>
+        <h2 id="games-h">Play a game Prosper built</h2>
+        <p>Void Runner, exactly as the pipeline produced it. Click it and play.</p>
       </div>
       <div class="stage rv" id="play" style="margin:0 auto 28px;max-width:960px">
         <div class="win">
           <div class="win-top">
             <span class="dots"><i></i><i></i><i></i></span>
-            <span class="win-title">Play a Prosper build</span>
+            <span class="win-title">Void Runner</span>
           </div>
           <div class="playwrap"><iframe id="game" title="Void Runner, a game built by Prosper" src="about:blank" data-base="https://prospernwo.netlify.app/games/" loading="lazy" allow="autoplay; fullscreen; gamepad"></iframe>
             <button type="button" class="playcover" id="playcover">▶ Play Void Runner</button></div>
         </div>
-        <div class="gamepick" role="group" aria-label="Choose a game">
-          <button type="button" class="on" data-game="void_runner">Void Runner</button>
-          <button type="button" data-game="crystal_caverns">Crystal Caverns</button>
-          <button type="button" data-game="slime_hopper_4">Slime Hopper 4</button>
-        </div>
         <p class="note" style="text-align:center;margin-top:12px">Click the game once so it gets your keyboard. Best on a computer. <a id="opengame" href="https://prospernwo.netlify.app/games/void_runner/" target="_blank" rel="noopener">Open in a new tab</a></p>
       </div>
-      <div class="gallery">
-        <figure class="gshot rv"><img src="img/void-runner.jpg" width="960" height="540" loading="lazy" alt="Void Runner: a vertical space shooter with enemy ships."><figcaption><b>Void Runner</b><span>Space shooter</span></figcaption></figure>
-        <figure class="gshot rv"><img src="img/crystal-caverns.jpg" width="960" height="540" loading="lazy" alt="Crystal Caverns: a platformer with crystals, lives and floating platforms."><figcaption><b>Crystal Caverns</b><span>Platformer</span></figcaption></figure>
-        <figure class="gshot rv"><img src="img/slime-hopper-4.jpg" width="960" height="540" loading="lazy" alt="Slime Hopper 4: a platformer with gems and a slime enemy."><figcaption><b>Slime Hopper 4</b><span>Platformer</span></figcaption></figure>
-        <figure class="gshot rv"><img src="img/ocean-tower-defense.jpg" width="480" height="270" loading="lazy" alt="A tower defense game with a winding path, towers and waves."><figcaption><b>Tower Defense</b><span>Beta · prompt-to-game</span></figcaption></figure>
-        <figure class="gshot rv"><img src="img/boat-top-down-racer.jpg" width="480" height="270" loading="lazy" alt="A top-down racer with laps, position and a timer."><figcaption><b>Top-Down Racer</b><span>Beta · prompt-to-game</span></figcaption></figure>
-        <figure class="gshot rv"><img src="img/pirate-tactics-grid.jpg" width="480" height="270" loading="lazy" alt="A turn-based tactics grid with a hand of cards."><figcaption><b>Tactics Grid</b><span>Beta · prompt-to-game</span></figcaption></figure>
-      </div>
-      <p class="note" style="margin-inline:auto;text-align:center">Templates are gate-tested by hand. Prompt-to-game is experimental: every game boots and plays, and matching your brief improves with each release.</p>
     </div>
   </section>
 
@@ -516,7 +502,7 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
       <div class="head">
         <span class="eyebrow">Prosper pricing · USD</span>
         <h2 id="pp-h">One plan. Your own server, your own AI key.</h2>
-        <p>Pay monthly or pay a year and get two months free. Your PIN is emailed as soon as the payment arrives.</p>
+        <p>Download Prosper first. Buy your PIN when you are ready to activate: pay monthly or pay a year and get two months free, and the PIN is emailed as soon as the payment arrives.</p>
       </div>
       <div class="plans" style="grid-template-columns:minmax(0,420px);justify-content:center">
         <div class="plan hl rv">
@@ -529,7 +515,8 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
             <li>44 templates and about 99 add-ons built in</li>
             <li>Pay by card (naira) or US bank transfer</li>
           </ul>
-          <a class="btn btn-blue" href="https://prosper.qzz.io/buy">Buy Prosper</a>
+          <a class="btn btn-blue" href="/download/#prosper">Download Prosper</a>
+          <a class="btn btn-dark" href="https://prosper.qzz.io/buy" style="margin-top:10px">Buy a license</a>
         </div>
       </div>
     </div>
@@ -539,7 +526,8 @@ em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
     <span class="eyebrow">Beta now open · <span id="spots">first 100 members get 2 months free</span></span>
     <h2 id="pl-h" class="rv">Be one of the first 100 members.</h2>
     <div class="ctas rv">
-      <a class="btn btn-blue" href="https://prosper.qzz.io/buy">Get Prosper</a>
+      <a class="btn btn-blue" href="/download/#prosper">Download Prosper</a>
+      <a class="btn btn-dark" href="https://prosper.qzz.io/buy">Buy a license</a>
       <a class="btn btn-dark" href="https://prospernwo.netlify.app" target="_blank" rel="noopener">Read the build log</a>
     </div>
   </section>
@@ -613,6 +601,11 @@ fetch("https://prosper.qzz.io/launch/info").then(function(r){return r.json()}).t
     if(cov.hidden){start()}else{cov.textContent='\u25B6 Play '+name(b)}
   })});
 })();
+</script>
+<script>
+fetch("https://prosper.qzz.io/launch/info").then(function(r){return r.json()}).then(function(j){
+ if(!(j.cap>0))return;var t=j.left>0?j.left+" of "+j.cap+" launch spots left":"launch spots are full";
+ ["spots","spots2"].forEach(function(i){var e=document.getElementById(i);if(e)e.textContent=t})}).catch(function(){});
 </script>
 </body>
 </html>

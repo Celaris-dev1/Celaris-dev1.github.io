@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prosper docs: install, activate, build</title>
+<meta name="description" content="How to install Prosper, activate it, add an AI key and build a game. What each stage does, how long builds take for your key, and how reliable they are.">
+<link rel="canonical" href="https://prolu.indevs.in/Docs/">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23000%27/%3E%3Cpath d=%27M11 25V7h6.5a6 6 0 0 1 0 12H11%27 fill=%27none%27 stroke=%27%236E86FF%27 stroke-width=%273%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#000;--panel:#07080B;--raised:#0E1015;--line:#1C1F26;--line-2:#2A2E38;--text:#F2F3F5;--text-2:#A8ADB8;--muted:#6B7180;--blue:#6E86FF;--blue-hi:#8A9DFF;--blue-rgb:110,134,255;--amber:#F5C063;
+--sans:"Zalando Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--serif:"Newsreader",Georgia,serif;--mono:"Geist Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;background-image:radial-gradient(60% 30% at 50% 0,rgba(var(--blue-rgb),.14),transparent 70%)}
+a{color:inherit}p{margin:0}h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.04em;line-height:1.05;text-wrap:balance}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+.top{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;padding-inline:18px;max-width:1280px;margin:0 auto}
+.word{font-weight:300;font-size:1.5rem;letter-spacing:.14em;text-decoration:none;line-height:1}
+.nav{display:flex;gap:20px;align-items:center}.nav a{font:400 .86rem var(--mono);color:var(--text-2);text-decoration:none}.nav a:hover{color:var(--text)}.nav a.btn,.nav a.btn:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:500 .88rem var(--mono);padding:10px 16px;border-radius:10px;text-decoration:none;border:1px solid transparent;background:var(--blue);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 10px 40px -10px rgba(var(--blue-rgb),.9)}
+.btn:hover{background:var(--blue-hi)}
+.wrap{max-width:1100px;margin:0 auto;padding:56px 24px 96px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr;gap:28px;padding-top:28px}.toc{position:static!important;display:flex!important;overflow-x:auto;gap:8px;padding-bottom:6px;scrollbar-width:none}.toc b{display:none}.toc a{white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:6px 12px}.nav a:not(.btn){display:none}}
+.toc{position:sticky;top:88px;align-self:start;display:grid;gap:2px;font:400 .84rem var(--mono)}
+.toc a{color:var(--muted);text-decoration:none;padding:6px 10px;border-left:1px solid var(--line)}.toc a:hover{color:var(--text);border-color:var(--blue)}
+.toc b{font-weight:500;color:var(--text-2);padding:0 10px 8px;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}
+main{min-width:0}main>section{padding-top:56px;scroll-margin-top:72px}main>section:first-child{padding-top:0}
+.eyebrow{font:400 .78rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+h1{font-size:clamp(2.6rem,7vw,4.4rem);margin-top:14px}h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.025em;color:#C9D1FF}
+h2{font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:18px}h3{font-size:1.15rem;letter-spacing:-.02em;margin:26px 0 8px}
+.lead{font-family:var(--serif);font-size:1.25rem;color:var(--text-2);margin-top:18px;max-width:46ch}
+main p,main li{color:var(--text-2)}main p+p{margin-top:12px}main ul,main ol{padding-left:1.2em;margin:12px 0}main li{margin:6px 0}main b,main strong{color:var(--text);font-weight:500}
+code{font:400 .86em var(--mono);background:var(--raised);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--text)}
+pre{margin:14px 0;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow-x:auto;font:400 .84rem/1.6 var(--mono);color:var(--text)}pre code{background:none;border:0;padding:0}
+.note{margin-top:22px;padding:16px 18px;border-radius:14px;border:1px solid rgba(245,192,99,.4);background:rgba(245,192,99,.07);color:var(--text)}
+.note b{color:var(--amber)}.note.blue{border-color:rgba(var(--blue-rgb),.4);background:rgba(26,35,102,.3)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.95rem}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--text-2)}
+th{font:400 .75rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}td:first-child{color:var(--text)}
+.tw{overflow-x:auto}
+.steps{counter-reset:s;list-style:none;padding:0}.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(s);font:500 .8rem var(--mono);color:var(--blue);border:1px solid rgba(var(--blue-rgb),.4);border-radius:8px;width:30px;height:30px;display:grid;place-items:center}
+details{border-top:1px solid var(--line);padding:14px 0}details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;color:var(--text);font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px}summary::after{content:"+";font-family:var(--mono);color:var(--muted)}details[open] summary::after{content:"\2212"}
+summary::-webkit-details-marker{display:none}details p{margin-top:10px}
+footer{border-top:1px solid var(--line);padding:32px 24px 56px;font:400 .86rem var(--mono);color:var(--muted)}
+footer .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}footer a{color:var(--text-2)}
+</style>
+</head>
+<body>
+<header class="top"><div class="bar"><a class="word" href="/">PROSPER</a>
+<nav class="nav"><a href="/Docs/">Docs</a><a href="/#prosper-pricing">Pricing</a><a href="/download/#prosper">Download</a><a class="btn" href="https://prosper.qzz.io/buy">Buy a license</a></nav></div></header>
+
+<div class="wrap">
+<nav class="toc" aria-label="On this page"><b>On this page</b>
+<a href="#start">Start</a><a href="#activate">Activate</a><a href="#key">Add an AI key</a><a href="#build">Build a game</a><a href="#stages">What happens in a build</a><a href="#time">How long it takes</a><a href="#reliability">How reliable it is</a><a href="#files">Where your files are</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#troubleshooting">Troubleshooting</a><a href="#changelog">Changelog</a><a href="#support">Support</a></nav>
+<main>
+
+<section id="top">
+<span class="eyebrow">Documentation · v0.1.0</span>
+<h1>Prosper <em>docs</em></h1>
+<p class="lead">Describe a game. Prosper plans it, writes it in parts, joins the parts, plays the result in a headless browser and repairs it until it runs.</p>
+<div class="note"><b>This is v0.1.0: functional, not polished.</b> Prosper works, but do not expect highly polished visuals from the games it builds. Treat a build as a working starting point and iterate on it. Updates will come regularly.</div>
+</section>
+
+<section id="start">
+<h2>Start</h2>
+<p>Prosper runs on your own computer with your own AI key. Download the zip for your system from the <a href="/download/#prosper">download page</a>, then:</p>
+<div class="tw"><table><tr><th>System</th><th>Do this</th></tr>
+<tr><td>Windows</td><td>Unzip. Double-click <b>Install Prosper</b>. Use the Desktop icon from then on.</td></tr>
+<tr><td>macOS</td><td>Unzip. Double-click <b>Install Prosper.command</b> (right-click, Open, if macOS asks).</td></tr>
+<tr><td>Linux</td><td><code>sh scripts/linux/install.sh</code>, then <code>prosper</code></td></tr></table></div>
+<p>The first start creates a private Python environment next to the code and installs packages. That takes a few minutes, once. After that Prosper opens in a second at <code>http://localhost:8000</code> (the next free port if 8000 is taken). Nothing is installed system-wide.</p>
+<div class="note blue"><b style="color:var(--blue-hi)">Linux:</b> release builds are compiled for <b>Python 3.12</b> and run only on that version. The installer checks and tells you how to get it: <code>sudo apt install python3.12 python3.12-venv</code>, or <code>uv python install 3.12</code>.</div>
+<p style="margin-top:14px">Commands: <code>prosper</code> starts it and opens the browser, <code>prosper stop</code>, <code>prosper status</code>, <code>prosper logs</code>, <code>prosper open</code>.</p>
+</section>
+
+<section id="activate">
+<h2>Activate</h2>
+<p>A freshly installed Prosper <b>does nothing until you activate it</b>. The browser opens on the setup page. Enter the PIN from your purchase email. You can buy one on the <a href="https://prosper.qzz.io/buy">buy page</a>; it is emailed as soon as the payment arrives.</p>
+<ul>
+<li>A PIN works on as many machines as its plan includes. To move it, deactivate on the old machine first.</li>
+<li>A paid term is 30 days (monthly) or 365 days (yearly, the price of ten months). After the term there is a 3-day grace period, then Prosper stops building until you renew.</li>
+<li>To renew, open the buy page, enter your PIN under "Renewing?" and pay. The same PIN is extended, you do not get a new one. A reminder email arrives 5 days before the end.</li>
+<li>Command line: <code>prosper activate --pin XXXX-XXXX-XXXX</code>.</li></ul>
+<p>Lost your PIN? Search your mailbox for "Prosper License PIN", or email support from the address you bought with.</p>
+</section>
+
+<section id="key">
+<h2>Add an AI key</h2>
+<p>Prosper needs at least one AI provider key. Paste it on the setup page or add it later in Settings. You can add several; Prosper falls back to the next one when a provider is slow, out of balance or rate limited.</p>
+<ul><li>Any provider that speaks the OpenAI or Anthropic protocol works through <b>Custom provider</b>: base URL, key, model name, protocol.</li>
+<li>A paid key is the biggest speed and reliability lever (see <a href="#time">how long it takes</a>). Free keys work, slowly, with rate limits.</li>
+<li>Your key is stored on your machine only.</li></ul>
+</section>
+
+<section id="build">
+<h2>Build a game</h2>
+<ol class="steps">
+<li><span>Describe the game: a title and a description of at least 50 characters. Say the genre, what the player does, how they win or lose, and the engine if you care (2D uses Phaser, 3D uses three.js).</span></li>
+<li><span>Start the build. Each stage shows live.</span></li>
+<li><span>When it finishes, play the game in the browser or download the project folder.</span></li></ol>
+<p>The same thing through the Conductor API, for scripts:</p>
+<pre><code>curl -s -X POST http://localhost:8000/api/conductor/start \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Coin Hopper","description":"A compact platformer where a frog jumps between platforms, collects coins and avoids hazards, with a score, three lives, a main menu and a game-over screen.","platform":"phaser+js","genre":"platformer"}'</code></pre>
+<p>The reply has a <code>job_id</code> (the same as <code>project_id</code>) and the per-system plan. Poll the job until it is done, then download it.</p>
+<h3>Tips for better results</h3>
+<ul><li>One clear core loop beats a long feature list.</li><li>Name the controls (arrow keys, mouse, touch) so the play check can drive the game.</li><li>Start small. Add features in a second build once the first one plays.</li></ul>
+</section>
+
+<section id="stages">
+<h2>What happens in a build</h2>
+<p>The Conductor runs these stages in order, and you can watch them in the build view.</p>
+<ol class="steps">
+<li><span><b>Brief check.</b> The description is checked for gaps and contradictions so the build starts from a clear spec.</span></li>
+<li><span><b>Spec and plan.</b> The brief becomes a structured game spec, split into units (movement, enemies, HUD, levels, and so on) with the order they depend on.</span></li>
+<li><span><b>Build the units.</b> Each unit is written by your AI model. Units that do not depend on each other are built in parallel.</span></li>
+<li><span><b>Review.</b> Every unit is verified before it is accepted. A unit that fails is rewritten, up to 12 rounds.</span></li>
+<li><span><b>Integration.</b> The accepted units are joined into one game that has to start from its entry file. Most failed builds fail here.</span></li>
+<li><span><b>Play gate.</b> A headless browser opens the game and checks that it boots, renders, reacts to input and has no console errors.</span></li>
+<li><span><b>Repair.</b> If the gate fails, the repair agent reads the error, patches the game and the gate runs again.</span></li>
+<li><span><b>Look check.</b> Where enabled, a vision model looks at screenshots for blank screens and overlapping text.</span></li>
+<li><span><b>Package.</b> The finished game is saved in your project folder, ready to play or download.</span></li></ol>
+<p>"Plays" means the play gate passed. It does not mean the game is polished or finished to your taste.</p>
+</section>
+
+<section id="time">
+<h2>How long it takes</h2>
+<p>One build is about 80 AI calls and roughly 400,000 tokens. Time depends mostly on how fast your key answers.</p>
+<div class="tw"><table><tr><th>Your key</th><th>Typical build time</th></tr>
+<tr><td>Fast paid key (DeepSeek-V4.1-Flash class)</td><td>About 30 to 70 minutes for a small 2D game. Across the launch benchmark, including repairs: median about 100 minutes for 2D and about 135 for 3D.</td></tr>
+<tr><td>Slower paid or shared key</td><td>2 to 4 hours</td></tr>
+<tr><td>Free keys (rate limited)</td><td>2 to 4 hours for 2D, 3 to 11 hours for 3D in testing</td></tr></table></div>
+<p>Builds started together share your key's rate limit, so five at once is slower per game than one. Repairs add time: only a minority of builds pass with no repair at all. You pay your provider for tokens: about 0.4 million per game, plus extra for judge, vision and repair calls.</p>
+</section>
+
+<section id="reliability">
+<h2>How reliable it is</h2>
+<p>From the launch benchmark, counting builds that finished:</p>
+<div class="tw"><table><tr><th></th><th>Passed the play gate</th></tr>
+<tr><td>Phaser 2D</td><td>About 70% (50 of 70 across the swarm; 13 of 19 in the final 50-spec run)</td></tr>
+<tr><td>three.js 3D</td><td>About 65% (13 of 19), still being improved</td></tr></table></div>
+<ul><li>A pass is a game that starts and responds. In the visual check, about half of the passing games also looked clean.</li>
+<li>Failures are usually integration (the parts do not join). Run it again with a smaller, clearer spec.</li>
+<li>Quality depends on the model behind your key. Stronger models pass more often and need fewer repairs.</li></ul>
+</section>
+
+<section id="files">
+<h2>Where your files are</h2>
+<ul><li><b>Games and projects:</b> your Prosper data folder, under each project (the build view shows the exact path).</li>
+<li><b>Settings and keys:</b> stored locally, never uploaded.</li>
+<li><b>Logs:</b> <code>prosper logs</code>, or <code>setup.log</code> for the first run.</li>
+<li><b>Sharing:</b> sharing your builds to help train Prosper's models is optional and off until you agree. Your keys, PIN and emails are never included.</li></ul>
+</section>
+
+<section id="pricing">
+<h2>Pricing</h2>
+<p><b>$25 per month</b>, or <b>$250 per year</b> (two months free). One plan: everything Prosper makes, 2D and 3D, on Mac, Windows and Linux. Pay by card (naira) or US bank transfer. Download first and buy your PIN when you are ready to activate. Details and launch offers are on the <a href="/#prosper-pricing">pricing section</a>.</p>
+<p style="margin-top:14px"><a class="btn" href="https://prosper.qzz.io/buy">Buy a license</a></p>
+</section>
+
+<section id="faq">
+<h2>FAQ</h2>
+<details><summary>Is Prosper free?</summary><p>The download is free, but an unactivated copy does nothing. You need a PIN to build.</p></details>
+<details><summary>What does it cost?</summary><p>$25 per month or $250 per year. Card payments are taken in naira; bank transfer is in US dollars.</p></details>
+<details><summary>Do I need my own AI key?</summary><p>Yes. Prosper runs on your machine and uses the AI provider you choose and pay. A paid key makes builds much faster.</p></details>
+<details><summary>Does my data leave my machine?</summary><p>Your projects, games and keys stay on your computer. Prosper contacts our server only to activate and check your licence. Sharing builds to help train our models is optional and off until you agree.</p></details>
+<details><summary>Which systems does it run on?</summary><p>Windows, macOS and Linux. On Linux you need Python 3.12.</p></details>
+<details><summary>What can it make?</summary><p>2D games with Phaser and 3D games with three.js, from a written description. It ships with 44 templates and about 99 add-ons.</p></details>
+<details><summary>Will the games look polished?</summary><p>Not yet. This is v0.1.0. Games work, but do not expect highly polished visuals. Treat each build as a playable starting point.</p></details>
+<details><summary>How many machines can I use?</summary><p>As many as your plan includes. The standard plan covers one machine at a time. To move it, deactivate the old one first.</p></details>
+<details><summary>My PIN stopped working.</summary><p>Your paid term may have ended (there is a 3-day grace period), or the PIN was deactivated. Renew on the buy page with the same PIN, or email support.</p></details>
+<details><summary>Will it be updated?</summary><p>Yes, updates will come regularly. See the changelog below.</p></details>
+</section>
+
+<section id="troubleshooting">
+<h2>Troubleshooting</h2>
+<div class="tw"><table><tr><th>Problem</th><th>What to do</th></tr>
+<tr><td>"Built for Python 3.12" (Linux)</td><td>Install Python 3.12 and run the installer again.</td></tr>
+<tr><td>Browser did not open</td><td>Run <code>prosper open</code>, or visit <code>http://localhost:8000</code>.</td></tr>
+<tr><td>Port 8000 busy</td><td>Prosper picks the next free port. <code>prosper status</code> shows it.</td></tr>
+<tr><td>"PIN not found"</td><td>Check for typos and use the PIN from your email.</td></tr>
+<tr><td>"All seats in use"</td><td>Deactivate another machine, or contact support.</td></tr>
+<tr><td>Builds are very slow</td><td>Add a faster paid key, or a second provider as a fallback.</td></tr>
+<tr><td>A build fails at integration</td><td>Run it again with a smaller, clearer spec.</td></tr>
+<tr><td>Blank page after an update</td><td>Close Prosper fully and start it again.</td></tr></table></div>
+</section>
+
+<section id="changelog">
+<h2>Changelog</h2>
+<p>A list of what changed in each release, newest first.</p>
+<h3>v0.1.0 · October 2026</h3>
+<p>First public release. Builds 2D (Phaser) and 3D (three.js) games from a description, with the play gate and repair loop, 44 templates, licence PIN activation for Windows, macOS and Linux. Functional, not polished.</p>
+</section>
+
+<section id="support">
+<h2>Support</h2>
+<p>Email <a href="mailto:prosper@omucloud.co"><b>prosper@omucloud.co</b></a> from the address you bought with. Include your system and the output of <code>prosper logs</code>.</p>
+</section>
+
+</main></div>
+<footer><div class="in"><span>© 2026 Prosper &amp; Prolu</span><span><a href="/">Home</a> · <a href="/download/#prosper">Download</a> · <a href="/prolu/#terms">Terms</a> · <a href="/prolu/#privacy">Privacy</a> · <a href="mailto:prosper@omucloud.co">Support</a></span></div></footer>
+</body></html>

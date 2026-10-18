@@ -2,611 +2,206 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Prosper: AI game builder that ships playable 2D &amp; 3D web games</title>
-<meta name="description" content="Prosper is a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a build that a headless browser has already played. Beta now open: $25/month, first 100 members get 2 months free.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prosper: describe a game, get a game that was already played</title>
+<meta name="description" content="Prosper is a self-hosted AI game builder for 2D and 3D web games. Describe a game; Prosper writes it, plays it to check it works, and fixes what breaks. Launches 20 October 2026.">
 <link rel="canonical" href="https://prolu.indevs.in/">
 <meta name="theme-color" content="#000000">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Prosper &amp; Prolu">
-<meta property="og:title" content="Prosper: AI game builder that ships playable 2D &amp; 3D web games">
-<meta property="og:description" content="Prosper is a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a build that a headless browser has already played. Launching 20 October.">
+<meta property="og:title" content="Prosper: describe a game, Prosper builds it">
+<meta property="og:description" content="Describe a game. Prosper builds it, plays it, and fixes it. Self-hosted. Launches 20 October 2026.">
 <meta property="og:url" content="https://prolu.indevs.in/">
-<meta property="og:image" content="https://prolu.indevs.in/img/conductor.jpg">
+<meta property="og:image" content="https://prolu.indevs.in/assets/film-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@Prospernwo">
-<meta name="twitter:title" content="Prosper: AI game builder that ships playable 2D &amp; 3D web games">
-<meta name="twitter:description" content="Prosper is a self-hosted AI game builder for 2D and 3D web games. Describe a game and get a build that a headless browser has already played. Launching 20 October.">
-<meta name="twitter:image" content="https://prolu.indevs.in/img/conductor.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23000%27/%3E%3Cpath d=%27M11 25V7h6.5a6 6 0 0 1 0 12H11%27 stroke=%27%237C93FF%27 stroke-width=%273.4%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<link rel="icon" href="assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/run-poster.jpg">
+<link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Prosper","applicationCategory":"DeveloperApplication","applicationSubCategory":"AI game builder","operatingSystem":"macOS, Windows, Linux","description":"Self-hosted AI game builder for 2D (Phaser) and 3D (three.js) web games. Every build is play-tested in a headless browser and repaired until it passes.","url":"https://prolu.indevs.in/","image":"https://prolu.indevs.in/img/conductor.jpg","offers":{"@type":"Offer","price":"25","priceCurrency":"USD","url":"https://prosper.qzz.io/buy","description":"Per month, or $250 per year"},"sameAs":["https://github.com/Celaris-dev1","https://x.com/Prospernwo"]}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Prosper","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS, Windows (self-hosted)","description":"AI pipeline that builds, plays and repairs games until they pass a play gate.","offers":[{"@type":"Offer","price":"25","priceCurrency":"USD","description":"Monthly"},{"@type":"Offer","price":"250","priceCurrency":"USD","description":"Annual"}],"author":{"@type":"Organization","name":"Prosper","email":"prosper@omucloud.co","address":{"@type":"PostalAddress","addressLocality":"Lagos","addressCountry":"NG"}}}
 </script>
-<style>
-:root{
-  color-scheme:dark;
-  --bg:#000; --panel:#07080B; --raised:#0E1015; --line:#1C1F26; --line-2:#2A2E38;
-  --text:#F2F3F5; --text-2:#A8ADB8; --muted:#6B7180;
-  --blue:#6E86FF; --blue-hi:#8A9DFF; --blue-rgb:110,134,255; --blue-deep:#1A2366;
-  --green:#5BD38A; --red:#FF6B7A; --amber:#F5C063; --violet:#B69CFF; --teal:#5FD4C4; --orange:#FF9F6B;
-  --sans:"Zalando Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --serif:"Newsreader",Georgia,"Times New Roman",serif;
-  --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-html{overflow-x:clip}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit}
-p{margin:0}
-h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.045em;line-height:1.02;text-wrap:balance}
-:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
-.wrap{max-width:1280px;margin:0 auto;padding-inline:24px}
-.narrow{max-width:840px;margin:0 auto;padding-inline:24px}
-.mono{font-family:var(--mono)}
-.serif{font-family:var(--serif)}
-
-/* ---------- nav ---------- */
-.top{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
-.top.scrolled{border-bottom-color:var(--line)}
-.top .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;padding-inline:18px}
-.top .l,.top .r{display:flex;align-items:center;gap:22px}
-.word{font-weight:300;font-size:1.5rem;letter-spacing:.14em;text-decoration:none;color:var(--text);line-height:1}
-.chip-link{display:inline-flex;align-items:center;gap:8px;font:400 .82rem var(--mono);padding:7px 12px;border-radius:8px;border:1px solid rgba(var(--blue-rgb),.4);background:rgba(var(--blue-rgb),.08);color:var(--text);text-decoration:none}
-.chip-link:hover{background:rgba(var(--blue-rgb),.16)}
-.navlink{font:400 .86rem var(--mono);color:var(--text-2);text-decoration:none;display:inline-flex;gap:7px;align-items:center}
-.navlink:hover{color:var(--text)}
-.navlink svg,.chip-link svg,.btn svg{width:15px;height:15px;flex:none}
-
-/* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:500 .92rem var(--mono);padding:12px 20px;border-radius:10px;text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;color:var(--text);transition:background .15s,border-color .15s,box-shadow .15s}
-.btn-blue{background:var(--blue);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 10px 40px -10px rgba(var(--blue-rgb),.9)}
-.btn-blue:hover{background:var(--blue-hi)}
-.btn-dark{background:#0C0D10;border-color:var(--line-2)}
-.btn-dark:hover{border-color:#3C4250;background:#121419}
-.btn-sm{padding:8px 14px;font-size:.84rem;border-radius:8px}
-
-/* ---------- hero ---------- */
-.hero{position:relative;padding:110px 0 0;text-align:center;isolation:isolate;overflow-x:clip;padding-inline:16px}
-#stars{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-.hero::before{content:"";position:absolute;left:50%;top:150px;width:min(1100px,140vw);height:620px;transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 40%,rgba(var(--blue-rgb),.22),rgba(var(--blue-rgb),.05) 55%,transparent 75%);z-index:-1;pointer-events:none}
-.hero::after{content:"";position:absolute;inset:60px 0 auto;height:560px;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:96px 96px;background-position:center;-webkit-mask:radial-gradient(45% 60% at 50% 45%,#000,transparent);mask:radial-gradient(45% 60% at 50% 45%,#000,transparent)}
-.badge{display:inline-flex;align-items:center;gap:8px;font:400 .8rem var(--mono);padding:5px 12px;border-radius:999px;border:1px solid rgba(var(--blue-rgb),.5);background:rgba(26,35,102,.45);color:var(--text)}
-.badge i{width:3px;height:3px;border-radius:50%;background:var(--text-2)}
-.hero h1{font-size:clamp(2.9rem,7.4vw,5.6rem);margin:26px auto 0;max-width:13ch}
-.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.025em;color:#C9D1FF}
-.hero .sub{font-family:var(--serif);font-size:clamp(1.12rem,1.9vw,1.32rem);line-height:1.5;color:var(--text-2);max-width:600px;margin:24px auto 0}
-.hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px}
-.hero .fine{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font:400 .82rem var(--mono);color:var(--muted)}
-.hero .fine b{font-weight:400;color:var(--text-2)}
-
-/* window mock */
-.stage{position:relative;max-width:1000px;margin:80px auto 0}
-.stage::before{content:"";position:absolute;inset:auto 0 -120px;height:300px;background:radial-gradient(50% 60% at 50% 30%,rgba(var(--blue-rgb),.2),transparent 70%);z-index:-1}
-.win{border-radius:18px;background:linear-gradient(180deg,#0B0D13,#050608);border:1px solid var(--line-2);box-shadow:0 0 0 1px rgba(255,255,255,.03) inset,0 50px 120px -40px rgba(0,0,0,1),0 0 80px -30px rgba(var(--blue-rgb),.5);overflow:hidden;text-align:left}
-.win-top{display:flex;align-items:center;gap:14px;height:44px;padding-inline:16px;border-bottom:1px solid var(--line)}
-.dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;background:#FF5F57}.dots i:nth-child(2){background:#FEBC2E}.dots i:nth-child(3){background:#28C840}
-.win-title{font:500 .78rem var(--sans);color:var(--text-2)}
-.win-tabs{margin-left:auto;display:flex;gap:6px;font:400 .7rem var(--mono)}
-.win-tabs span{padding:4px 9px;border-radius:6px;color:var(--muted)}
-.win-tabs span.on{background:rgba(var(--blue-rgb),.2);color:#C9D1FF}
-.win-body{display:grid;grid-template-columns:200px 1fr 1fr;min-height:400px}
-.side{border-right:1px solid var(--line);padding:16px 12px;display:grid;align-content:start;gap:4px;font-size:.8rem;color:var(--text-2)}
-.side .h{font:300 1rem var(--sans);letter-spacing:.14em;color:var(--text);padding:0 8px 12px}
-.side span{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:7px}
-.side span.on{background:#14171E;color:var(--text)}
-.side span i{width:8px;height:8px;border-radius:2px}
-.side .sec{font:400 .68rem var(--mono);color:var(--muted);padding:14px 8px 4px;letter-spacing:.04em}
-.pane{padding:18px;border-right:1px solid var(--line);display:grid;align-content:start;gap:10px}
-.pane:last-child{border-right:0}
-.pane .ph{font:400 .7rem var(--mono);color:var(--muted);letter-spacing:.04em;margin-bottom:4px}
-.rcpt{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding:11px 12px;border-radius:10px;background:#0C0E13;border:1px solid var(--line)}
-.rcpt .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font:600 .82rem var(--sans);color:#000}
-.rcpt b{display:block;font-weight:500;font-size:.84rem}
-.rcpt small{display:block;font:400 .68rem var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:22ch}
-.ok{font:400 .66rem var(--mono);color:var(--green);white-space:nowrap}
-.term{font:400 .74rem/1.75 var(--mono);color:var(--text-2);white-space:pre;overflow:hidden;margin:0}
-.t-c{color:var(--muted)} .t-r{color:var(--red)} .t-y{color:var(--amber)} .t-g{color:var(--green)} .t-b{color:var(--blue-hi)} .t-v{color:var(--violet)}
-.prompt{margin-top:auto;border:1px solid var(--line-2);border-radius:12px;padding:10px 12px;font:400 .72rem var(--mono);color:var(--muted);display:flex;justify-content:space-between;align-items:center;background:#08090C}
-.prompt i{font-style:normal;padding:2px 8px;border-radius:6px;background:#161922;color:var(--text-2)}
-
-/* ---------- sections ---------- */
-section{position:relative}
-.sp{padding-block:140px}
-.head{text-align:center;max-width:820px;margin:0 auto 64px}
-.head h2{font-size:clamp(2.3rem,5.4vw,4rem)}
-.head p{font-family:var(--serif);font-size:1.22rem;color:var(--text-2);margin-top:20px}
-.eyebrow{display:block;font:400 .78rem var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
-
-/* feature cards */
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.fcard{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--line);background:#000;padding:40px 40px 0;min-height:520px;display:flex;flex-direction:column}
-.fcard::after{content:"";position:absolute;inset:auto 0 0;height:62%;pointer-events:none;z-index:0;background:radial-gradient(70% 70% at 50% 100%,rgba(var(--blue-rgb),.18),transparent 70%)}
-.floor{position:absolute;inset:auto -20% -2px;height:58%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(var(--blue-rgb),.22) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--blue-rgb),.22) 1px,transparent 1px);background-size:44px 44px;transform:perspective(500px) rotateX(62deg);transform-origin:bottom;-webkit-mask:linear-gradient(transparent,#000 60%);mask:linear-gradient(transparent,#000 60%);opacity:.55}
-.fcard > *{position:relative;z-index:1}
-.fcard h3{font-size:clamp(1.8rem,2.8vw,2.4rem);max-width:15ch}
-.fcard > p{font-family:var(--serif);font-size:1.15rem;color:var(--text-2);margin-top:16px;max-width:30ch;line-height:1.45}
-.fcard .demo{margin:auto 0 0;padding:36px 0 40px;display:grid;justify-items:center}
-.glass{width:min(100%,420px);border-radius:14px;border:1px solid var(--line-2);background:rgba(10,12,17,.86);backdrop-filter:blur(6px);box-shadow:0 30px 60px -20px #000}
-.glass .gh{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);font:400 .76rem var(--mono);color:var(--text-2)}
-.glass .gh b{color:var(--text);font-weight:500}
-.diff{font:400 .76rem/1.9 var(--mono);color:var(--text-2);padding:8px 0}
-.diff div{padding:0 14px;display:grid;grid-template-columns:22px 1fr;gap:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.diff .n{color:var(--muted)}
-.diff .del{background:rgba(255,107,122,.13);color:#FFB1BA;text-decoration:line-through}
-.diff .add{background:rgba(91,211,138,.13);color:#B7F0CC}
-.glass .gf{border-top:1px solid var(--line);padding:11px 14px;font:500 .9rem var(--sans);display:flex;gap:8px;align-items:center}
-.tokens{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:470px}
-.tok{display:grid;justify-items:center;gap:14px}
-.orb{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(var(--blue-rgb),.5);background:radial-gradient(circle at 50% 40%,rgba(var(--blue-rgb),.25),rgba(0,0,0,.4) 70%);box-shadow:0 0 40px -6px rgba(var(--blue-rgb),.5);font:500 .74rem var(--mono);color:var(--text)}
-.orb.deny{border-color:rgba(255,107,122,.5);background:radial-gradient(circle at 50% 40%,rgba(255,107,122,.22),rgba(0,0,0,.4) 70%);box-shadow:0 0 40px -6px rgba(255,107,122,.45)}
-.tag{font:400 .72rem var(--mono);padding:7px 11px;border-radius:8px;background:#14171E;border:1px solid var(--line-2);display:inline-flex;gap:7px;align-items:center;white-space:nowrap}
-.tag .d{width:8px;height:8px;border-radius:50%;background:var(--green)}
-.tag.bad .d{background:var(--red)}
-.tag.blue{background:rgba(26,35,102,.6);border-color:rgba(var(--blue-rgb),.45)}
-.steps-demo{width:100%;max-width:440px;display:grid;gap:10px}
-.st{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid var(--line-2);background:rgba(10,12,17,.86);font-size:.88rem}
-.st .k{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:500 .7rem var(--mono);background:#14171E;color:var(--text-2)}
-.st.done .k{background:rgba(91,211,138,.15);color:var(--green)}
-.st.wait{border-color:rgba(245,192,99,.45);box-shadow:0 0 30px -10px rgba(245,192,99,.5)}
-.st.wait .k{background:rgba(245,192,99,.15);color:var(--amber)}
-.st small{font:400 .7rem var(--mono);color:var(--muted)}
-
-/* unified band */
-.unified{text-align:center;padding-block:160px 140px;overflow:hidden}
-.unified::before{content:"";position:absolute;left:50%;top:40px;width:min(900px,120vw);height:520px;transform:translateX(-50%);background:radial-gradient(40% 50% at 50% 50%,rgba(var(--blue-rgb),.28),transparent 70%);pointer-events:none}
-.unified::after{content:"";position:absolute;left:50%;top:0;width:min(560px,90vw);height:100%;transform:translateX(-50%);pointer-events:none;background:repeating-linear-gradient(90deg,rgba(var(--blue-rgb),.08) 0 2px,transparent 2px 22px);-webkit-mask:radial-gradient(50% 40% at 50% 40%,#000,transparent);mask:radial-gradient(50% 40% at 50% 40%,#000,transparent)}
-.unified > *{position:relative;z-index:1}
-.unified h2{font-size:clamp(2.4rem,5.8vw,4.4rem)}
-.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:880px;margin:48px auto 0}
-.pill{display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:12px;background:#0A0B0F;border:1px solid var(--line-2);font-size:1rem}
-.pill i{width:10px;height:10px;border-radius:3px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1000px;margin:88px auto 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.stat{padding:30px 22px;text-align:left;border-right:1px solid var(--line)}
-.stat:last-child{border-right:0}
-.stat .v{font-size:2.6rem;font-weight:500;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1}
-.stat .l{font-family:var(--serif);color:var(--text-2);margin-top:10px;font-size:1.02rem;line-height:1.35}
-.stat .s{font:400 .68rem var(--mono);color:var(--muted);margin-top:8px}
-
-/* editorial product list */
-.ledger-list{border-top:1px solid var(--line)}
-.prod{display:grid;grid-template-columns:200px 1fr;gap:40px;padding:44px 0;border-bottom:1px solid var(--line)}
-.prod .meta{font:400 .78rem/1.7 var(--mono);color:var(--muted)}
-.prod .meta b{display:block;font-weight:400;color:var(--text-2);letter-spacing:.06em}
-.prod h3{font-family:var(--serif);font-weight:400;font-size:2.1rem;letter-spacing:-.02em;display:flex;align-items:center;gap:14px}
-.prod h3 i{width:10px;height:10px;border-radius:3px;flex:none}
-.prod .body p{font-family:var(--serif);font-size:1.18rem;line-height:1.55;color:var(--text-2);margin-top:12px;max-width:58ch}
-.prod .body p em{color:var(--text)}
-.prod .links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font:400 .8rem var(--mono);color:var(--muted)}
-.prod .links a{color:var(--text);text-underline-offset:4px;text-decoration-color:var(--line-2)}
-.prod .links a:hover{text-decoration-color:var(--text)}
-
-/* pricing */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.plan{border-radius:22px;border:1px solid var(--line);background:var(--panel);padding:32px;display:flex;flex-direction:column;gap:18px}
-.plan.hl{border-color:rgba(var(--blue-rgb),.55);background:radial-gradient(120% 60% at 50% 0%,rgba(var(--blue-rgb),.16),var(--panel) 60%);box-shadow:0 0 80px -30px rgba(var(--blue-rgb),.6)}
-.plan .pn{display:flex;justify-content:space-between;align-items:center;font:400 .82rem var(--mono);color:var(--text-2);letter-spacing:.04em;text-transform:uppercase}
-.plan .pn span{font-size:.7rem;text-transform:none;letter-spacing:0;padding:4px 9px;border-radius:999px;background:rgba(var(--blue-rgb),.18);color:#C9D1FF}
-.plan .price{font-size:3.2rem;font-weight:500;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
-.plan .price small{font:400 .82rem var(--mono);letter-spacing:0;color:var(--muted)}
-.plan > p{font-family:var(--serif);font-size:1.08rem;color:var(--text-2)}
-.plan ul{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--line);display:grid;gap:11px;font-size:.95rem;flex:1}
-.plan li{display:grid;grid-template-columns:18px 1fr;gap:10px;color:var(--text-2)}
-.plan li::before{content:"";width:14px;height:14px;margin-top:4px;border-radius:50%;background:rgba(var(--blue-rgb),.18) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2l2 2 4-4.4' stroke='%238A9DFF' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
-.plan .btn{width:100%}
-.tbl{margin-top:48px;overflow-x:auto;border:1px solid var(--line);border-radius:22px;background:var(--panel)}
-table{width:100%;min-width:720px;border-collapse:collapse;font-size:.95rem}
-th,td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-thead th{font:400 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
-tbody tr:last-child td{border-bottom:0}
-td:first-child{font-weight:500;white-space:nowrap}
-td .s{display:block;font-family:var(--serif);color:var(--muted);font-size:.95rem;margin-top:2px}
-.amt{font-variant-numeric:tabular-nums;font-weight:500}
-
-.buy{margin-top:48px;border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:28px;display:grid;gap:14px}
-.buy-h{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.buy-h h3{font-size:1.7rem}
-.seg{display:inline-flex;padding:4px;border-radius:12px;background:#000;border:1px solid var(--line-2)}
-.seg label{position:relative;cursor:pointer}
-.seg input{position:absolute;opacity:0;pointer-events:none}
-.seg span{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:9px;font:400 .82rem var(--mono);color:var(--text-2)}
-.seg input:checked + span{background:#171A22;color:var(--text)}
-.seg input:focus-visible + span{outline:2px solid var(--blue)}
-.seg em{font-style:normal;color:var(--green);font-size:.72rem}
-.buy-item{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:16px 18px;border-radius:14px;background:#000;border:1px solid var(--line)}
-.buy-item > div{display:grid;gap:2px}
-.buy-item b{font-weight:500}
-.buy-item > div span{font-family:var(--serif);color:var(--text-2)}
-.buy-item label{display:flex;gap:10px;align-items:center;font:400 .78rem var(--mono);color:var(--muted)}
-.buy-item input{width:84px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label.f{display:grid;gap:7px;font:400 .78rem var(--mono);color:var(--muted)}
-input,select,textarea{font:inherit;font-family:var(--sans);font-size:.98rem;color:var(--text);background:#000;border:1px solid var(--line-2);border-radius:10px;padding:11px 13px;width:100%}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(var(--blue-rgb),.2)}
-textarea{min-height:110px;resize:vertical}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.buy-msg{font:400 .86rem/1.65 var(--mono);color:var(--text);padding:16px 18px;border:1px solid rgba(var(--blue-rgb),.4);background:rgba(26,35,102,.3);border-radius:12px;white-space:pre-wrap}
-.note{margin-top:20px;font-family:var(--serif);font-size:1.05rem;color:var(--muted);max-width:75ch}
-
-/* enterprise */
-.ent{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.ent h2{font-size:clamp(2.2rem,4.4vw,3.4rem)}
-.ent .lede{font-family:var(--serif);font-size:1.2rem;color:var(--text-2);margin-top:18px}
-.steps{list-style:none;margin:36px 0 0;padding:0;display:grid;counter-reset:s;border-top:1px solid var(--line)}
-.steps li{display:grid;grid-template-columns:56px 1fr;padding:20px 0;border-bottom:1px solid var(--line);counter-increment:s}
-.steps li::before{content:"0" counter(s);font:400 .8rem var(--mono);color:var(--blue-hi);padding-top:3px}
-.steps b{display:block;font-weight:500}
-.steps span{font-family:var(--serif);color:var(--text-2);font-size:1.05rem}
-.contact{margin-top:28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font:400 .82rem var(--mono);color:var(--muted)}
-.contact code{font:400 .9rem var(--mono);color:var(--text);background:#0A0B0F;border:1px solid var(--line-2);padding:9px 13px;border-radius:10px}
-form#quote{border-radius:22px;border:1px solid var(--line);background:var(--panel);padding:28px;display:grid;gap:16px}
-.out{font:400 .82rem var(--mono);white-space:pre-wrap;background:#000;border:1px dashed var(--line-2);border-radius:10px;padding:14px;color:var(--text-2)}
-
-/* FAQ / legal */
-.faq{max-width:840px;margin:0 auto;border-top:1px solid var(--line)}
-details{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;list-style:none;padding:26px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:1.22rem;font-weight:400;letter-spacing:-.01em}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"";width:14px;height:14px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' stroke='%23A8ADB8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .2s}
-details[open] summary::after{transform:rotate(180deg)}
-.lb{padding:0 0 30px;display:grid;gap:14px;font-family:var(--serif);font-size:1.1rem;line-height:1.6;color:var(--text-2)}
-.lb h4{margin:8px 0 0;font:400 .76rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text)}
-.lb ul{margin:0;padding-left:20px;display:grid;gap:6px}
-
-/* final cta */
-.final{position:relative;text-align:center;padding:170px 24px 150px;overflow:hidden;isolation:isolate}
-.final::before{content:"";position:absolute;left:50%;top:50%;width:min(1000px,140vw);height:600px;transform:translate(-50%,-50%);background:radial-gradient(45% 50% at 50% 45%,rgba(var(--blue-rgb),.28),transparent 70%);z-index:-1}
-.final::after{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:96px 96px;background-position:center;-webkit-mask:radial-gradient(40% 50% at 50% 50%,#000,transparent);mask:radial-gradient(40% 50% at 50% 50%,#000,transparent)}
-.final h2{font-size:clamp(2.6rem,6.4vw,4.8rem);max-width:14ch;margin:0 auto}
-.final .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}
-.final .fine{margin-top:30px;font-family:var(--serif);color:var(--text-2);font-size:1.05rem}
-.final .fine a{text-underline-offset:4px;text-decoration-color:var(--line-2)}
-
-footer{border-top:1px solid var(--line);padding:36px 0 52px}
-footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;font:400 .8rem var(--mono);color:var(--muted)}
-footer .word{font-size:1.1rem}
-footer .links{display:flex;gap:22px;flex-wrap:wrap}
-footer a{text-decoration:none;color:var(--text-2)}
-footer a:hover{color:var(--text)}
-
-/* reveal */
-@media (prefers-reduced-motion:no-preference){
-  .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
-  .rv.in{opacity:1;transform:none}
-  .st.wait{animation:pulse 2.4s ease-in-out infinite}
-}
-@keyframes pulse{50%{box-shadow:0 0 44px -6px rgba(245,192,99,.55)}}
-
-@media (max-width:1000px){
-  .navlink.hide-m{display:none}
-  .win-body{grid-template-columns:1fr 1fr}
-  .side{display:none}
-  .cards,.ent{grid-template-columns:1fr}
-  .plans{grid-template-columns:1fr;max-width:520px;margin-inline:auto}
-  .stats{grid-template-columns:1fr 1fr}
-  .stat:nth-child(2){border-right:0}
-  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .prod{grid-template-columns:1fr;gap:14px}
-}
-@media (max-width:640px){
-  body{font-size:16px}
-  .wrap,.narrow{padding-inline:16px}
-  .top .bar{padding-inline:12px}
-  .top .chip-link,.navlink{display:none}
-  .sp{padding-block:96px}
-  .hero{padding-top:72px}
-  .stage{margin-top:56px}
-  .win-body{grid-template-columns:1fr}
-  .pane{border-right:0;border-bottom:1px solid var(--line)}
-  .win-tabs{display:none}
-  .fcard{padding:28px 22px 0;min-height:0}
-  .tokens{gap:8px}.orb{width:66px;height:66px}
-  .tag{font-size:.64rem;padding:6px 8px}
-  .buy-item{grid-template-columns:1fr}
-  .buy-item input{width:100%}
-  .two{grid-template-columns:1fr}
-  .stat .v{font-size:2rem}
-  .final{padding-block:110px}
-}
-
-/* prosper */
-.win img.shot{display:block;width:100%;height:auto}
-.pipe{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--panel);counter-reset:p}
-.pipe li{padding:22px 18px;border-right:1px solid var(--line);display:grid;gap:8px;align-content:start;counter-increment:p}
-.pipe li:last-child{border-right:0}
-.pipe li::before{content:"0" counter(p);font:400 .74rem var(--mono);color:var(--blue-hi)}
-.pipe b{font-weight:500;font-size:1.05rem}
-.pipe span{font-family:var(--serif);color:var(--text-2);font-size:.98rem;line-height:1.4}
-.pipe li:nth-child(6){background:radial-gradient(100% 80% at 50% 0%,rgba(var(--blue-rgb),.16),transparent)}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.gshot{margin:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--panel)}
-.gshot img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
-.gshot figcaption{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border-top:1px solid var(--line)}
-.gshot figcaption b{font-weight:500}
-.gshot figcaption span{font:400 .74rem var(--mono);color:var(--muted);align-self:center;text-align:right}
-.bignum{display:grid;justify-items:center;text-align:center;gap:8px}
-.bignum b{font-size:6rem;font-weight:500;letter-spacing:-.06em;line-height:1}
-.bignum b small{font-size:2.4rem;color:var(--muted)}
-.bignum span{font:400 .82rem var(--mono);color:var(--text-2)}
-.bignum em{font-family:var(--serif);color:var(--muted);max-width:34ch;font-size:1rem}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:420px}
-.chips .tag{font-size:.8rem;padding:9px 13px}
-.final .eyebrow{margin-bottom:22px}
-.divide{text-align:center;padding:120px 24px 100px;border-top:1px solid var(--line);display:grid;justify-items:center;gap:14px}
-.divide .serif{font-size:1.2rem;color:var(--text-2);max-width:46ch}
-.divide .eyebrow{margin:0}
-em.it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.025em;color:#C9D1FF}
-.unified{padding-top:80px}
-@media (max-width:1000px){
-  .pipe{grid-template-columns:1fr 1fr}
-  .pipe li{border-bottom:1px solid var(--line)}
-  .pipe li:nth-child(2n){border-right:0}
-  .gallery{grid-template-columns:1fr 1fr}
-}
-@media (max-width:640px){
-  .gallery{grid-template-columns:1fr}
-  .bignum b{font-size:4.4rem}
-}
-.playwrap{position:relative;aspect-ratio:16/9;background:#000}
-.playwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.playcover{position:absolute;inset:0;border:0;background:rgba(0,0,0,.55);color:#fff;font:inherit;font-size:1.1rem;cursor:pointer}
-.playcover[hidden]{display:none}
-.gamepick{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
-.gamepick button{background:var(--bg-2,#111);border:1px solid var(--line);color:inherit;font:inherit;font-size:.85rem;padding:8px 14px;border-radius:999px;cursor:pointer;opacity:.7}
-.gamepick button.on{opacity:1;border-color:var(--blue)}
-</style>
+<script src="main.js" defer></script>
 </head>
 <body>
-<header class="top" id="top-bar">
-  <div class="bar">
-    <div class="l">
-      <a class="word" href="#top" aria-label="Prosper home">PROSPER</a>
-      <a class="chip-link" href="https://github.com/Celaris-dev1" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.6 0 0 3.6 0 8c0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.5.8.5 1.5v2.2c0 .2.1.5.6.4C13.7 14.5 16 11.5 16 8c0-4.4-3.6-8-8-8z"/></svg>
-        Open source
-      </a>
-    </div>
-    <nav class="r" aria-label="Main">
-      <a class="navlink hide-m" href="#how">How it works</a>
-      <a class="navlink hide-m" href="#games">Games</a>
-      <a class="navlink hide-m" href="#prosper-pricing">Pricing</a>
-      <a class="navlink hide-m" href="/Docs/">Docs</a>
-      <a class="navlink" href="/prolu/">Prolu</a>
-      <a class="btn btn-dark btn-sm" href="/download/#prosper">
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download Prosper
-      </a>
-    </nav>
-  </div>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <a href="#top" class="logo" aria-label="Prosper home"><img src="assets/logo-mark.png" alt="" width="28" height="26">Prosper</a>
+  <nav aria-label="Primary">
+    <ul id="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="/Docs/">Docs</a></li>
+    </ul>
+  </nav>
+  <a href="/download/#prosper" class="nav-cta">Download</a>
+  <button type="button" class="menu-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span class="burger" aria-hidden="true"></span></button>
 </header>
-<main id="top">
-  <section class="hero">
-    <canvas id="stars" aria-hidden="true"></canvas>
-    <span class="badge">Prosper <i></i> Self-hosted <i></i> Beta now open</span>
-    <h1>Describe a game. <em>Prosper builds it.</em></h1>
-    <p class="sub">A self-hosted AI game builder for 2D and 3D web games. It splits your idea into parts, has models write each one, checks every part, plays the result in a headless browser and repairs what fails.</p>
-    <div class="ctas">
-      <a class="btn btn-blue" href="/download/#prosper">
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h12v8H2zM2 4l6 5 6-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        Download Prosper
-      </a>
-      <a class="btn btn-dark" href="#play">Play a game it built</a>
-    </div>
-    <span class="fine">44 of 45 templates pass the play gate <b>·</b> Phaser for 2D, three.js for 3D <b>·</b> Runs on your own server</span>
 
-    <div class="stage rv">
-      <div class="win">
-        <div class="win-top">
-          <span class="dots"><i></i><i></i><i></i></span>
-          <span class="win-title">Prosper · Conductor</span>
-          <span class="win-tabs"><span class="on">Units</span><span>Spec</span><span>Events</span></span>
-        </div>
-        <img class="shot" src="img/conductor.jpg" width="1352" height="654" alt="Prosper's Conductor screen: a game brief on the left and the eight build units it was split into on the right, each with its status.">
-      </div>
-    </div>
-  </section>
-
-  <section class="sp" id="how" aria-labelledby="how-h">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">How a build works</span>
-        <h2 id="how-h">From brief to playable game</h2>
-        <p>Chat-to-code tools hand you code and hope. Prosper doesn't hand you anything until a headless browser can <em>actually play it</em>.</p>
-      </div>
-      <ol class="pipe rv">
-        <li><b>Spec</b><span>Title, genre, platform and description.</span></li>
-        <li><b>Decompose</b><span>Systems, scenes, assets and glue.</span></li>
-        <li><b>Build</b><span>Models write each unit, with fallbacks across providers.</span></li>
-        <li><b>Verify</b><span>Imports resolve, exports exist, scenes connect.</span></li>
-        <li><b>Merge</b><span>Units bundle into one game.</span></li>
-        <li><b>Play gate</b><span>A headless browser boots it and reaches play.</span></li>
-        <li><b>Repair</b><span>An agent fixes what fails until it passes.</span></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="sp" id="games" aria-labelledby="games-h" style="padding-top:20px">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Built by Prosper</span>
-        <h2 id="games-h">Play a game Prosper built</h2>
-        <p>Void Runner, exactly as the pipeline produced it. Click it and play.</p>
-      </div>
-      <div class="stage rv" id="play" style="margin:0 auto 28px;max-width:960px">
-        <div class="win">
-          <div class="win-top">
-            <span class="dots"><i></i><i></i><i></i></span>
-            <span class="win-title">Void Runner</span>
-          </div>
-          <div class="playwrap"><iframe id="game" title="Void Runner, a game built by Prosper" src="about:blank" data-base="https://prospernwo.netlify.app/games/" loading="lazy" allow="autoplay; fullscreen; gamepad"></iframe>
-            <button type="button" class="playcover" id="playcover">▶ Play Void Runner</button></div>
-        </div>
-        <p class="note" style="text-align:center;margin-top:12px">Click the game once so it gets your keyboard. Best on a computer. <a id="opengame" href="https://prospernwo.netlify.app/games/void_runner/" target="_blank" rel="noopener">Open in a new tab</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sp" aria-label="What ships with Prosper" style="padding-top:40px">
-    <div class="wrap">
-      <div class="cards">
-        <article class="fcard rv">
-          <h3>Start from a template that already plays</h3>
-          <p>Hand-built templates, each tested in a real browser. A build can start from one and change it.</p>
-          <div class="demo"><div class="bignum"><b>44<small>/45</small></b><span>templates pass the play gate</span><em>19 in 3D: racing, platformer, dungeon, tower defense, survival, city builder and more</em></div></div>
-          <div class="floor" aria-hidden="true"></div>
-        </article>
-        <article class="fcard rv">
-          <h3>Add-ons you snap on</h3>
-          <p>About 99 packs, plus a shared 3D runtime for loading, audio, input, cameras and multiplayer.</p>
-          <div class="demo"><div class="chips">
-            <span class="tag blue">Leaderboards</span><span class="tag">Achievements</span><span class="tag">Daily challenges</span><span class="tag blue">Weather</span><span class="tag">Day &amp; night</span><span class="tag">Extra waves</span><span class="tag blue">Ghost laps</span><span class="tag">Perf overlay</span>
-          </div></div>
-          <div class="floor" aria-hidden="true"></div>
-        </article>
-        <article class="fcard rv">
-          <h3>Every asset licensed, every build audited</h3>
-          <p>CC0 art packs, music, sound and fonts. Each file carries a licence record.</p>
-          <div class="demo">
-            <div class="glass">
-              <div class="gh">⚖ <b>licence audit</b> build #418</div>
-              <div class="diff">
-                <div class="add"><span>✓</span>sprites · Kenney CC0</div>
-                <div class="add"><span>✓</span>music loops · CC0</div>
-                <div class="add"><span>✓</span>fonts · OFL</div>
-              </div>
-              <div class="gf"><span style="color:var(--green)">✓</span> Safe to sell</div>
-            </div>
-          </div>
-          <div class="floor" aria-hidden="true"></div>
-        </article>
-        <article class="fcard rv">
-          <h3>Sell what you make</h3>
-          <p>Charge for your game with built-in license keys. No store, no cut: a payment becomes a PIN, the PIN unlocks a signed licence.</p>
-          <div class="demo">
-            <div class="tokens">
-              <div class="tok"><span class="orb">$</span><span class="tag">Payment</span></div>
-              <div class="tok"><span class="orb">PIN</span><span class="tag blue">Activate</span></div>
-              <div class="tok"><span class="orb">RS256</span><span class="tag"><i class="d"></i>Licensed</span></div>
-            </div>
-          </div>
-          <div class="floor" aria-hidden="true"></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="sp" id="prosper-pricing" aria-labelledby="pp-h" style="padding-bottom:0">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Prosper pricing · USD</span>
-        <h2 id="pp-h">One plan. Your own server, your own AI key.</h2>
-        <p>Download Prosper first. Buy your PIN when you are ready to activate: pay monthly or pay a year and get two months free, and the PIN is emailed as soon as the payment arrives.</p>
-      </div>
-      <div class="plans" style="grid-template-columns:minmax(0,420px);justify-content:center">
-        <div class="plan hl rv">
-          <div class="pn">Prosper <span id="spots2">Launch offer</span></div>
-          <div class="price">$25<small> / month · $250 / year</small></div>
-          <p>Everything Prosper makes: 2D and 3D games from a prompt, on Mac, Windows and Linux.</p>
-          <ul>
-            <li>First 100 members get 2 months free</li>
-            <li>Join the Discord and get an extra week</li>
-            <li>44 templates and about 99 add-ons built in</li>
-            <li>Pay by card (naira) or US bank transfer</li>
-          </ul>
-          <a class="btn btn-blue" href="/download/#prosper">Download Prosper</a>
-          <a class="btn btn-dark" href="https://prosper.qzz.io/buy" style="margin-top:10px">Buy a license</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="final" style="padding-block:120px" aria-labelledby="pl-h">
-    <span class="eyebrow">Beta now open · <span id="spots">first 100 members get 2 months free</span></span>
-    <h2 id="pl-h" class="rv">Be one of the first 100 members.</h2>
-    <div class="ctas rv">
-      <a class="btn btn-blue" href="/download/#prosper">Download Prosper</a>
-      <a class="btn btn-dark" href="https://prosper.qzz.io/buy">Buy a license</a>
-      <a class="btn btn-dark" href="https://prospernwo.netlify.app" target="_blank" rel="noopener">Read the build log</a>
-    </div>
-  </section>
-
-  <div class="divide">
-    <span class="eyebrow">Also from us</span>
-    <p class="word" style="font-size:2rem">PROLU</p>
-    <p class="serif">Self-hosted governance for AI agents: verify the code they write, limit what they can touch, and keep a record nobody can quietly edit.</p>
-    <div class="ctas"><a class="btn btn-dark" href="/prolu/">Explore Prolu</a></div>
+<!-- Mobile menu: native modal dialog = focus trap, Escape and inert page for free -->
+<dialog class="menu" id="menu" aria-label="Menu">
+  <div class="menu-top">
+    <span class="logo" aria-hidden="true"><img src="assets/logo-mark.png" alt="" width="28" height="26">Prosper</span>
+    <button type="button" class="menu-close" aria-label="Close menu"><span class="burger x" aria-hidden="true"></span></button>
   </div>
+  <p class="menu-status mono" style="--i:0"><span class="pulse" aria-hidden="true"></span><span><span data-launch>Launches 20.10.2026</span> · Built in Lagos</span></p>
+  <nav aria-label="Menu">
+    <ol class="menu-links">
+      <li style="--i:1"><a href="#top"><span class="mono">01</span>Watch it work</a></li>
+      <li style="--i:2"><a href="#how"><span class="mono">02</span>How it works</a></li>
+      <li style="--i:3"><a href="#games"><span class="mono">03</span>Play a game</a></li>
+      <li style="--i:4"><a href="#pricing"><span class="mono">04</span>Pricing</a></li>
+      <li style="--i:5"><a href="#faq"><span class="mono">05</span>FAQ</a></li>
+    </ol>
+  </nav>
+  <div class="menu-offer" style="--i:6">
+    <p class="mono label">First 100 members · 2 months free</p>
+    <div class="meter" aria-hidden="true" data-seats-wrap hidden><i></i></div>
+    <p class="mono seats" data-seats-wrap hidden><span data-seats-left></span> of 100 launch spots left</p>
+    <a href="/download/#prosper" class="btn btn-block">Download Prosper</a>
+  </div>
+  <p class="menu-foot mono" style="--i:7"><a href="mailto:prosper@omucloud.co">prosper@omucloud.co</a> · <a href="#" data-discord>Discord</a></p>
+</dialog>
+
+<!-- Launch film: loads only when opened -->
+<dialog class="film" id="film" aria-labelledby="film-h">
+  <div class="film-top">
+    <h2 id="film-h" class="mono label">Prosper launch film · 60s</h2>
+    <button type="button" class="menu-close" data-film-close aria-label="Close film"><span class="burger x" aria-hidden="true"></span></button>
+  </div>
+  <video controls playsinline preload="none" poster="assets/film-poster.jpg" width="1280" height="720"><source src="assets/film.mp4" type="video/mp4"></video>
+  <details class="film-text">
+    <summary>Read what's in the film</summary>
+    <p>Music only, no voice. On screen: "Describe a game. Prosper builds it." Weeks of setup before anything plays. Prosper, the AI game builder that plays every build. A prompt, "A neon 3D racer with ghost laps and item boxes", is split into units, written in parallel, checked, then played in a headless browser. When a play test fails, Prosper repairs it and plays again. Real games, play-tested before you ever see them: Grand Prix, Meadow Run, Neon Arena. 189 builds: about 70% of 2D and 65% of 3D games play (3D work in progress). Every one played by a machine before you see it. Full source. Licensed assets. Your keys. Launches 20 October, and the first 100 customers get 2 months free.</p>
+  </details>
+</dialog>
+
+<main id="main">
+<!-- 1. HERO -->
+<section class="hero" id="top" aria-labelledby="h1">
+  <p class="eyebrow mono"><span data-launch>Launches 20.10.2026</span> · Built in Lagos</p>
+  <h1 id="h1"><span class="line">Describe a game.</span> <em class="line">Prosper builds it.</em></h1>
+  <p class="sub">Prosper is a self-hosted AI game builder. It writes your game, plays it to check it works, and fixes what breaks. 2D and 3D, on your own computer.</p>
+  <div class="hero-actions">
+    <a href="/download/#prosper" class="btn">Download Prosper</a>
+    <a href="#games" class="btn btn-ghost">Play a game it built</a>
+    <p class="seats mono" aria-live="polite">First 100 members get 2 months free<span data-seats-wrap hidden> · <span data-seats-left></span> spots left</span></p>
+  </div>
+
+  <figure class="run">
+    <div class="run-frame">
+      <video data-autoplay muted loop playsinline preload="metadata" poster="assets/run-poster.jpg" width="1280" height="720" aria-describedby="run-desc">
+        <source src="assets/run.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="run-toggle" data-toggle aria-label="Pause recording" hidden><span aria-hidden="true"></span></button>
+    </div>
+    <figcaption>
+      <span class="mono label">Screen recording · Prosper UI</span>
+      <button type="button" class="film-btn" data-film><span class="play" aria-hidden="true"></span>Watch the 60s film</button>
+    </figcaption>
+    <p id="run-desc" class="visually-hidden">Prosper takes the prompt "A neon 3D racer with ghost laps and item boxes", splits it into 9 units, writes them in parallel and checks them. It then plays the game in a headless browser. The first play test fails, Prosper repairs it, and the build passes all 7 gates, including a licence audit.</p>
+  </figure>
+</section>
+
+<!-- 2. WHAT YOU GET: three plain facts -->
+<section id="proof" aria-labelledby="proof-h">
+  <h2 id="proof-h" class="visually-hidden">What Prosper is</h2>
+  <ul class="stats">
+    <li><strong>You describe it</strong><span>Type the game you want, in plain words. No coding needed.</span></li>
+    <li><strong>It plays it</strong><span>A machine plays every build before you see it. It must start, respond and reach a win or lose.</span></li>
+    <li><strong>You own it</strong><span>Runs on your computer. Every game is a normal project you can open, edit and sell.</span></li>
+  </ul>
+</section>
+
+<!-- 3. GAMES -->
+<section id="games" aria-labelledby="games-h">
+  <h2 id="games-h">Real games. <em>Play one now.</em></h2>
+  <div class="game playable">
+    <div class="game-bar"><i aria-hidden="true"></i><h3>Void Runner</h3><span class="mono tag">2D</span><span class="pass mono">built by Prosper</span></div>
+    <div class="playwrap"><iframe id="game" title="Void Runner, a game built by Prosper" src="about:blank" data-base="https://prospernwo.netlify.app/games/" loading="lazy" allow="autoplay; fullscreen; gamepad"></iframe>
+      <button type="button" class="playcover" id="playcover">▶ Play Void Runner</button></div>
+  </div>
+  <p class="fine mono">Click the game once so it gets your keyboard. Best on a computer. <a id="opengame" href="https://prospernwo.netlify.app/games/void_runner/" target="_blank" rel="noopener">Open it full screen</a></p>
+  <ul class="games">
+    <li class="game"><div class="game-bar"><i aria-hidden="true"></i><h3>Grand Prix</h3><span class="mono tag">3D</span><span class="pass mono">✓ play test passed</span></div>
+      <video data-autoplay muted loop playsinline preload="none" poster="assets/grand-prix.jpg" width="800" height="432" aria-label="Grand Prix: a low-poly 3D racer with lap, position and boost display"><source src="assets/grand-prix.mp4" type="video/mp4"></video></li>
+    <li class="game"><div class="game-bar"><i aria-hidden="true"></i><h3>Meadow Run</h3><span class="mono tag">3D</span><span class="pass mono">✓ play test passed</span></div>
+      <video data-autoplay muted loop playsinline preload="none" poster="assets/meadow-run.jpg" width="800" height="432" aria-label="Meadow Run: a 3D platformer across floating grass islands"><source src="assets/meadow-run.mp4" type="video/mp4"></video></li>
+    <li class="game"><div class="game-bar"><i aria-hidden="true"></i><h3>Neon Arena</h3><span class="mono tag">3D</span><span class="pass mono">✓ play test passed</span></div>
+      <video data-autoplay muted loop playsinline preload="none" poster="assets/neon-arena.jpg" width="800" height="432" aria-label="Neon Arena: a 3D arena game on a glowing neon grid"><source src="assets/neon-arena.mp4" type="video/mp4"></video></li>
+  </ul>
+  <p class="fine mono">3D clips are recordings of Prosper builds. 44 of our 45 starter templates pass the same play test.</p>
+</section>
+
+<!-- 4. HOW -->
+<section id="how" aria-labelledby="how-h">
+  <h2 id="how-h">How it works, <em>in four steps.</em></h2>
+  <ol class="steps">
+    <li><span class="mono">01 DESCRIBE</span><p>Say what game you want: the genre, how it plays, how you win.</p></li>
+    <li><span class="mono">02 BUILD</span><p>Prosper splits the idea into parts. AI models write each part, and each part is checked.</p></li>
+    <li><span class="mono">03 PLAY</span><p>A machine plays the finished game in a real browser. It has to start, respond to input and reach a win or lose.</p></li>
+    <li><span class="mono">04 FIX</span><p>If something fails, Prosper repairs it and plays again, or tells you exactly what failed.</p></li>
+  </ol>
+</section>
+
+<!-- 5. PRICING -->
+<section id="pricing" aria-labelledby="price-h">
+  <h2 id="price-h">One plan. <em>Everything in it.</em></h2>
+  <div class="price-grid">
+    <div class="plan">
+      <p class="mono label">Prosper</p>
+      <p class="price"><strong>$25</strong><span>/month</span></p>
+      <p class="price-alt">or <strong>$250/year</strong> (2 months free)</p>
+      <ul class="checks">
+        <li>2D and 3D games from a prompt</li>
+        <li>44 templates and about 99 add-ons built in</li>
+        <li>Mac, Windows and Linux</li>
+        <li>You bring your own AI key and pay the provider directly</li>
+      </ul>
+      <a href="/download/#prosper" class="btn">Download Prosper</a>
+      <a href="https://prosper.qzz.io/buy" class="btn btn-ghost" style="margin-top:.6rem">Buy a license</a>
+    </div>
+    <div class="seat-card" aria-label="Launch offer">
+      <p class="mono label">Launch offer</p>
+      <p class="seat-no mono">First 100 members <span class="dim">2 months free</span></p>
+      <div class="meter" aria-hidden="true" data-seats-wrap hidden><i></i></div>
+      <p class="mono dim" data-seats-wrap hidden><span data-seats-taken></span> claimed · <span data-seats-left></span> left</p>
+      <p class="fine">Claim a free PIN on the buy page. It works for 2 months from the day you first use it.</p>
+      <a href="https://prosper.qzz.io/buy" class="btn btn-ghost" style="margin-top:1rem">Claim your free PIN</a>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FAQ -->
+<section id="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Questions</h2>
+  <details><summary>What do I need to run it?</summary><p>A computer (Mac, Windows or Linux) and an AI model key from a provider you choose. Prosper runs on your machine; the key is yours and you pay the provider directly.</p></details>
+  <details><summary>Does every game work?</summary><p>No. Prosper plays each build and repairs what it can. Complex physics, games with many scenes and 3D cameras fail most often. If a build still fails after repairs, Prosper stops and shows you what failed instead of calling it done.</p></details>
+  <details><summary>Is 3D ready?</summary><p>3D works but is still in progress. It is included in your plan and improves with each release.</p></details>
+  <details><summary>Can I sell the games I make?</summary><p>Yes. Each game is a normal project you own. Prosper uses only free-to-use art and sound, with a licence record for each file.</p></details>
+  <details><summary>Is Prosper open source?</summary><p>No. Prosper itself is closed. The games it builds are yours, with full source.</p></details>
+  <details><summary>Refunds and support?</summary><p>See the <a href="/legal/#terms">terms and refund rules</a>, or email <a href="mailto:prosper@omucloud.co">prosper@omucloud.co</a>.</p></details>
+</section>
+
+<section class="close" aria-labelledby="close-h">
+  <h2 id="close-h">Describe a game. <em>Play it today.</em></h2>
+  <p class="seats mono" data-seats-wrap hidden><span data-seats-left></span> of 100 launch spots left</p>
+  <a href="/download/#prosper" class="btn">Download Prosper</a>
+</section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <a class="word" href="#top">PROSPER</a>
-    <span>© 2026 Prosper &amp; Prolu</span>
-    <span class="links"><a href="/legal/#terms">Terms</a><a href="/legal/#privacy">Privacy</a><a href="/prolu/">Prolu</a><a href="/Docs/">Docs</a><a href="mailto:prosper@omucloud.co">Support</a></span>
-  </div>
+<footer class="foot mono">
+  <p>Prosper · Built in Lagos · <a href="mailto:prosper@omucloud.co">prosper@omucloud.co</a></p>
+  <p><a href="/Docs/">Docs</a> · <a href="/download/">Downloads</a> · <a href="/legal/">Legal</a> · <a href="https://github.com/Celaris-dev1" rel="noopener">GitHub</a> · <a href="https://prospernwo.netlify.app" rel="noopener">Build log</a> · <a href="/prolu/">Also from us: Prolu</a></p>
+  <p class="dim">© 2026 Prosper</p>
 </footer>
-
 <script>
 (function(){
-  // starfield
-  var c = document.getElementById('stars'), x = c.getContext('2d'), stars = [], w, h, dpr = Math.min(2, window.devicePixelRatio || 1);
-  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function size(){
-    w = c.offsetWidth; h = c.offsetHeight; c.width = w * dpr; c.height = h * dpr; x.setTransform(dpr,0,0,dpr,0,0);
-    stars = []; var n = Math.round(w * h / 9000);
-    for (var i = 0; i < n; i++) stars.push({ x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.1+.3, a: Math.random()*.6+.15, t: Math.random()*6.28, s: Math.random()*.015+.004, blue: Math.random() < .12 });
-  }
-  function draw(){
-    x.clearRect(0,0,w,h);
-    for (var i = 0; i < stars.length; i++) {
-      var s = stars[i]; s.t += s.s;
-      x.globalAlpha = s.a * (.55 + .45*Math.sin(s.t));
-      x.fillStyle = s.blue ? '#8A9DFF' : '#fff';
-      x.fillRect(s.x, s.y, s.r, s.r);
-    }
-    if (!still) requestAnimationFrame(draw);
-  }
-  size(); draw();
-  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ size(); if (still) draw(); }, 150); });
-
-  // nav border on scroll
-  var bar = document.getElementById('top-bar');
-  function onScroll(){ bar.classList.toggle('scrolled', window.scrollY > 8); }
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-  // reveal on scroll
-  var els = document.querySelectorAll('.rv');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-    els.forEach(function(e){ io.observe(e); });
-  } else { els.forEach(function(e){ e.classList.add('in'); }); }
+  var f=document.getElementById('game'),cov=document.getElementById('playcover'),base=f.getAttribute('data-base');
+  cov.addEventListener('click',function(){f.src=base+'void_runner/';cov.hidden=true;f.focus()});
 })();
-</script>
-<script>
-fetch("https://prosper.qzz.io/launch/info").then(function(r){return r.json()}).then(function(j){
- if(!(j.cap>0))return;var t=j.left>0?j.left+" of "+j.cap+" launch spots left":"launch spots are full";
- ["spots","spots2"].forEach(function(i){var e=document.getElementById(i);if(e)e.textContent=t})}).catch(function(){});
-</script>
-<script>
-(function(){
-  var f=document.getElementById('game'),cov=document.getElementById('playcover'),open=document.getElementById('opengame'),base=f.getAttribute('data-base'),cur='void_runner';
-  function name(b){return b.textContent}
-  function start(){f.src=base+cur+'/';cov.hidden=true;f.focus()}
-  cov.addEventListener('click',start);
-  document.querySelectorAll('[data-game]').forEach(function(b){b.addEventListener('click',function(){
-    document.querySelectorAll('[data-game]').forEach(function(x){x.classList.toggle('on',x===b)});
-    cur=b.getAttribute('data-game');open.href=base+cur+'/';f.title=name(b)+', a game built by Prosper';
-    if(cov.hidden){start()}else{cov.textContent='\u25B6 Play '+name(b)}
-  })});
-})();
-</script>
-<script>
-fetch("https://prosper.qzz.io/launch/info").then(function(r){return r.json()}).then(function(j){
- if(!(j.cap>0))return;var t=j.left>0?j.left+" of "+j.cap+" launch spots left":"launch spots are full";
- ["spots","spots2"].forEach(function(i){var e=document.getElementById(i);if(e)e.textContent=t})}).catch(function(){});
 </script>
 </body>
 </html>

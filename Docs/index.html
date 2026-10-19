@@ -61,10 +61,10 @@ footer .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 2
 <main>
 
 <section id="top">
-<span class="eyebrow">Documentation · v0.1.0</span>
+<span class="eyebrow">Documentation · v0.1.1</span>
 <h1>Prosper <em>docs</em></h1>
 <p class="lead">Describe a game. Prosper plans it, writes it in parts, joins the parts, plays the result in a headless browser and repairs it until it runs.</p>
-<div class="note"><b>This is v0.1.0: functional, not polished.</b> Prosper works, but do not expect highly polished visuals from the games it builds. Treat a build as a working starting point and iterate on it. Updates will come regularly.</div>
+<div class="note"><b>This is v0.1.1: functional, still being polished.</b> Prosper works, but do not expect highly polished visuals from the games it builds. Treat a build as a working starting point and iterate on it. Updates will come regularly.</div>
 </section>
 
 <section id="start">
@@ -131,9 +131,9 @@ footer .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 2
 
 <section id="time">
 <h2>How long it takes</h2>
-<p>One build is about 80 AI calls and roughly 400,000 tokens. Time depends mostly on how fast your key answers.</p>
+<p>One build is about 80 AI calls and roughly 250,000 to 400,000 tokens. Time depends mostly on how fast your key answers.</p>
 <div class="tw"><table><tr><th>Your key</th><th>Typical build time</th></tr>
-<tr><td>Fast paid key (DeepSeek-V4.1-Flash class)</td><td>About 30 to 70 minutes for a small 2D game. Across the launch benchmark, including repairs: median about 100 minutes for 2D and about 135 for 3D.</td></tr>
+<tr><td>Fast paid key (DeepSeek-V4.1-Flash class)</td><td>About 30 to 70 minutes for a small 2D game (in our v0.1.1 check a match-3 game was playable in about 40 minutes, with the units written in about 11 and the rest spent on automatic repair, using 8 DeepSeek-V4.1-Flash keys). Across the launch benchmark, including repairs: median about 100 minutes for 2D and about 135 for 3D.</td></tr>
 <tr><td>Slower paid or shared key</td><td>2 to 4 hours</td></tr>
 <tr><td>Free keys (rate limited)</td><td>2 to 4 hours for 2D, 3 to 11 hours for 3D in testing</td></tr></table></div>
 <p>Builds started together share your key's rate limit, so five at once is slower per game than one. Repairs add time: only a minority of builds pass with no repair at all. You pay your provider for tokens: about 0.4 million per game, plus extra for judge, vision and repair calls.</p>
@@ -172,7 +172,7 @@ footer .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 2
 <details><summary>Does my data leave my machine?</summary><p>Your projects, games and keys stay on your computer. Prosper contacts our server only to activate and check your licence. Sharing builds to help train our models is optional and off until you agree.</p></details>
 <details><summary>Which systems does it run on?</summary><p>Windows, macOS and Linux. On Linux you need Python 3.12.</p></details>
 <details><summary>What can it make?</summary><p>2D games with Phaser and 3D games with three.js, from a written description. It ships with 44 templates and about 99 add-ons.</p></details>
-<details><summary>Will the games look polished?</summary><p>Not yet. This is v0.1.0. Games work, but do not expect highly polished visuals. Treat each build as a playable starting point.</p></details>
+<details><summary>Will the games look polished?</summary><p>Getting better, not finished. This is v0.1.1. Games work, but do not expect highly polished visuals. Treat each build as a playable starting point.</p></details>
 <details><summary>How many machines can I use?</summary><p>As many as your plan includes. The standard plan covers one machine at a time. To move it, deactivate the old one first.</p></details>
 <details><summary>My PIN stopped working.</summary><p>Your paid term may have ended (there is a 3-day grace period), or the PIN was deactivated. Renew on the buy page with the same PIN, or email support.</p></details>
 <details><summary>Will it be updated?</summary><p>Yes, updates will come regularly. See the changelog below.</p></details>
@@ -194,6 +194,14 @@ footer .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 2
 <section id="changelog">
 <h2>Changelog</h2>
 <p>A list of what changed in each release, newest first.</p>
+<h3>v0.1.1 · October 2026</h3>
+<ul>
+<li>Launch offer inside the app: claim the 2 free months from the setup screen or the License page.</li>
+<li>Better-looking games: a shared visual pass over every 2D and 3D template (lighting, palettes, UI), with no per-game edits.</li>
+<li>The vision judge now uses the AI providers you configured, and falls back to them when its preferred ones are missing.</li>
+<li>Repair can run on any OpenAI-compatible provider you add, including River; a crash in the quality review during repair is fixed.</li>
+<li>Experimental: an optional small Prosper model you can run on your own computer and add with one click (Settings, AI keys). It writes game units but is not yet a replacement for a strong hosted model; the adapter is a separate download and is not in this zip.</li>
+</ul>
 <h3>v0.1.0 · October 2026</h3>
 <p>First public release. Builds 2D (Phaser) and 3D (three.js) games from a description, with the play gate and repair loop, 44 templates, licence PIN activation for Windows, macOS and Linux. Functional, not polished.</p>
 </section>
